@@ -10690,6 +10690,8 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 <plain>
 <text x="45.72" y="81.28" size="1.778" layer="91">MOTOR CONTROL CIRCUIT</text>
 <text x="50.8" y="129.54" size="1.778" layer="91">5V REGULATOR</text>
+<text x="116.84" y="50.8" size="1.4224" layer="91">SINGLE MOTOR DRAW ~300mA 
+UNDER POWER SUPPLY</text>
 </plain>
 <instances>
 <instance part="IC1" gate="G$1" x="67.31" y="46.99" smashed="yes">
@@ -10983,6 +10985,10 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 </schematic>
 </drawing>
 <compatibility>
+<note version="6.3" minversion="6.2.2" severity="warning">
+Since Version 6.2.2 text objects can contain more than one line,
+which will not be processed correctly with this version.
+</note>
 <note version="8.2" severity="warning">
 Since Version 8.2, EAGLE supports online libraries. The ids
 of those online libraries will not be understood (or retained)
