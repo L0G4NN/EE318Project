@@ -1,5 +1,13 @@
+/******************
+main.c
+
+Group24
+updated 1 feb 2024
+******************/
+
 #include <msp430.h>
 #include <driverlib.h>
+#include "motor.h"
 
 int main(void)
 {

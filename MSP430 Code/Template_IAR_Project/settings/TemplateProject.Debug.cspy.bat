@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "C:\Users\gordo\Desktop\TemplateCode\Template_IAR_Project\settings\TemplateProject.Debug.general.xcl" --backend -f "C:\Users\gordo\Desktop\TemplateCode\Template_IAR_Project\settings\TemplateProject.Debug.driver.xcl" 
+"D:\IAR Embedded\common\bin\cspybat" -f "C:\Users\logan\Desktop\college work\EE318Project\MSP430 Code\Template_IAR_Project\settings\TemplateProject.Debug.general.xcl" --backend -f "C:\Users\logan\Desktop\college work\EE318Project\MSP430 Code\Template_IAR_Project\settings\TemplateProject.Debug.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "C:\Users\gordo\Desktop\TemplateCode\Template_IAR_Project\settings\TemplateProject.Debug.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\gordo\Desktop\TemplateCode\Template_IAR_Project\settings\TemplateProject.Debug.driver.xcl" 
+"D:\IAR Embedded\common\bin\cspybat" -f "C:\Users\logan\Desktop\college work\EE318Project\MSP430 Code\Template_IAR_Project\settings\TemplateProject.Debug.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\logan\Desktop\college work\EE318Project\MSP430 Code\Template_IAR_Project\settings\TemplateProject.Debug.driver.xcl" 
 
 @echo off 
 :end

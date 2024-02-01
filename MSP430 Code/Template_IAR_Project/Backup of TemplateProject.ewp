@@ -9,9 +9,9 @@
         <debug>1</debug>
         <settings>
             <name>General</name>
-            <archiveVersion>23</archiveVersion>
+            <archiveVersion>21</archiveVersion>
             <data>
-                <version>35</version>
+                <version>34</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>1</debug>
                 <option>
@@ -87,6 +87,14 @@
                     <state>1</state>
                 </option>
                 <option>
+                    <name>GeneralEnableMisra</name>
+                    <state>0</state>
+                </option>
+                <option>
+                    <name>GeneralMisraVerbose</name>
+                    <state>0</state>
+                </option>
+                <option>
                     <name>OGChipSelectMenu</name>
                     <state>MSP430FR4133	MSP430FR4133</state>
                 </option>
@@ -111,12 +119,26 @@
                     <state>80</state>
                 </option>
                 <option>
+                    <name>GeneralMisraRules98</name>
+                    <version>0</version>
+                    <state>1000111110110101101110011100111111101110011011000101110111101101100111111111111100110011111001110111001111111111111111111111111</state>
+                </option>
+                <option>
                     <name>RadioHeapSizeType</name>
                     <state>0</state>
                 </option>
                 <option>
                     <name>RadioHardwareMultiplierType</name>
                     <state>0</state>
+                </option>
+                <option>
+                    <name>GeneralMisraVer</name>
+                    <state>0</state>
+                </option>
+                <option>
+                    <name>GeneralMisraRules04</name>
+                    <version>0</version>
+                    <state>111101110010111111111000110111111111111111111111111110010111101111010101111111111111111111111111101111111011111001111011111011111111111111111</state>
                 </option>
                 <option>
                     <name>RadioL092ModelType</name>
@@ -219,21 +241,13 @@
                     <name>GPersistentFrwp</name>
                     <state>0</state>
                 </option>
-                <option>
-                    <name>BrowseInfoPath</name>
-                    <state>BrowseInfo</state>
-                </option>
-                <option>
-                    <name>BuildFilesPath</name>
-                    <state>Debug</state>
-                </option>
             </data>
         </settings>
         <settings>
             <name>ICC430</name>
             <archiveVersion>4</archiveVersion>
             <data>
-                <version>39</version>
+                <version>38</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>1</debug>
                 <option>
@@ -399,6 +413,10 @@
                     <state>0</state>
                 </option>
                 <option>
+                    <name>CompilerMisraOverride</name>
+                    <state>0</state>
+                </option>
+                <option>
                     <name>OI430X</name>
                     <state>1</state>
                 </option>
@@ -430,6 +448,16 @@
                 <option>
                     <name>CInput</name>
                     <state>1</state>
+                </option>
+                <option>
+                    <name>CompilerMisraRules98</name>
+                    <version>0</version>
+                    <state>1000111110110101101110011100111111101110011011000101110111101101100111111111111100110011111001110111001111111111111111111111111</state>
+                </option>
+                <option>
+                    <name>CompilerMisraRules04</name>
+                    <version>0</version>
+                    <state>111101110010111111111000110111111111111111111111111110010111101111010101111111111111111111111111101111111011111001111011111011111111111111111</state>
                 </option>
                 <option>
                     <name>IccLang</name>
@@ -702,8 +730,12 @@
                 <extensions></extensions>
                 <cmdline></cmdline>
                 <hasPrio>0</hasPrio>
-                <buildSequence>inputOutputBased</buildSequence>
             </data>
+        </settings>
+        <settings>
+            <name>BICOMP</name>
+            <archiveVersion>0</archiveVersion>
+            <data />
         </settings>
         <settings>
             <name>BUILDACTION</name>
@@ -715,9 +747,9 @@
         </settings>
         <settings>
             <name>XLINK</name>
-            <archiveVersion>5</archiveVersion>
+            <archiveVersion>4</archiveVersion>
             <data>
-                <version>33</version>
+                <version>30</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>1</debug>
                 <option>
@@ -730,7 +762,7 @@
                 </option>
                 <option>
                     <name>OutputFormat</name>
-                    <version>12</version>
+                    <version>11</version>
                     <state>33</state>
                 </option>
                 <option>
@@ -739,11 +771,19 @@
                     <state>2</state>
                 </option>
                 <option>
+                    <name>SecondaryOutputFile</name>
+                    <state>(None for the selected format)</state>
+                </option>
+                <option>
                     <name>XDefines</name>
                     <state></state>
                 </option>
                 <option>
                     <name>AlwaysOutput</name>
+                    <state>0</state>
+                </option>
+                <option>
+                    <name>OverlapWarnings</name>
                     <state>0</state>
                 </option>
                 <option>
@@ -757,6 +797,18 @@
                 <option>
                     <name>SegmentMap</name>
                     <state>1</state>
+                </option>
+                <option>
+                    <name>ListSymbols</name>
+                    <state>2</state>
+                </option>
+                <option>
+                    <name>PageLengthCheck</name>
+                    <state>0</state>
+                </option>
+                <option>
+                    <name>PageLength</name>
+                    <state>80</state>
                 </option>
                 <option>
                     <name>XIncludes</name>
@@ -904,7 +956,7 @@
                 </option>
                 <option>
                     <name>ExtraOutputFormat</name>
-                    <version>12</version>
+                    <version>11</version>
                     <state>23</state>
                 </option>
                 <option>
@@ -1037,34 +1089,6 @@
                     <name>XlinkFRWP</name>
                     <state>1</state>
                 </option>
-                <option>
-                    <name>AddressEntries</name>
-                    <state>1</state>
-                </option>
-                <option>
-                    <name>SymbolListing</name>
-                    <state>0</state>
-                </option>
-                <option>
-                    <name>ModuleMap</name>
-                    <state>1</state>
-                </option>
-                <option>
-                    <name>OutputFormatChecker</name>
-                    <state>0</state>
-                </option>
-                <option>
-                    <name>XlinkEncInput</name>
-                    <state>0</state>
-                </option>
-                <option>
-                    <name>XlinkEncOutput</name>
-                    <state>0</state>
-                </option>
-                <option>
-                    <name>XlinkEncOutputBom</name>
-                    <state>1</state>
-                </option>
             </data>
         </settings>
         <settings>
@@ -1122,6 +1146,11 @@
                 </option>
             </data>
         </settings>
+        <settings>
+            <name>BILINK</name>
+            <archiveVersion>0</archiveVersion>
+            <data />
+        </settings>
     </configuration>
     <configuration>
         <name>Release</name>
@@ -1131,9 +1160,9 @@
         <debug>0</debug>
         <settings>
             <name>General</name>
-            <archiveVersion>23</archiveVersion>
+            <archiveVersion>21</archiveVersion>
             <data>
-                <version>35</version>
+                <version>34</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>0</debug>
                 <option>
@@ -1209,6 +1238,14 @@
                     <state>4</state>
                 </option>
                 <option>
+                    <name>GeneralEnableMisra</name>
+                    <state>0</state>
+                </option>
+                <option>
+                    <name>GeneralMisraVerbose</name>
+                    <state>0</state>
+                </option>
+                <option>
                     <name>OGChipSelectMenu</name>
                     <state>MSP430F149	MSP430F149</state>
                 </option>
@@ -1233,12 +1270,26 @@
                     <state>###Uninitialized###</state>
                 </option>
                 <option>
+                    <name>GeneralMisraRules98</name>
+                    <version>0</version>
+                    <state>1000111110110101101110011100111111101110011011000101110111101101100111111111111100110011111001110111001111111111111111111111111</state>
+                </option>
+                <option>
                     <name>RadioHeapSizeType</name>
                     <state>0</state>
                 </option>
                 <option>
                     <name>RadioHardwareMultiplierType</name>
                     <state>0</state>
+                </option>
+                <option>
+                    <name>GeneralMisraVer</name>
+                    <state>0</state>
+                </option>
+                <option>
+                    <name>GeneralMisraRules04</name>
+                    <version>0</version>
+                    <state>111101110010111111111000110111111111111111111111111110010111101111010101111111111111111111111111101111111011111001111011111011111111111111111</state>
                 </option>
                 <option>
                     <name>RadioL092ModelType</name>
@@ -1341,21 +1392,13 @@
                     <name>GPersistentFrwp</name>
                     <state>0</state>
                 </option>
-                <option>
-                    <name>BrowseInfoPath</name>
-                    <state>BrowseInfo</state>
-                </option>
-                <option>
-                    <name>BuildFilesPath</name>
-                    <state>Release</state>
-                </option>
             </data>
         </settings>
         <settings>
             <name>ICC430</name>
             <archiveVersion>4</archiveVersion>
             <data>
-                <version>39</version>
+                <version>38</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>0</debug>
                 <option>
@@ -1520,6 +1563,10 @@
                     <state>0</state>
                 </option>
                 <option>
+                    <name>CompilerMisraOverride</name>
+                    <state>0</state>
+                </option>
+                <option>
                     <name>OI430X</name>
                     <state>1</state>
                 </option>
@@ -1551,6 +1598,16 @@
                 <option>
                     <name>CInput</name>
                     <state>1</state>
+                </option>
+                <option>
+                    <name>CompilerMisraRules98</name>
+                    <version>0</version>
+                    <state>1000111110110101101110011100111111101110011011000101110111101101100111111111111100110011111001110111001111111111111111111111111</state>
+                </option>
+                <option>
+                    <name>CompilerMisraRules04</name>
+                    <version>0</version>
+                    <state>111101110010111111111000110111111111111111111111111110010111101111010101111111111111111111111111101111111011111001111011111011111111111111111</state>
                 </option>
                 <option>
                     <name>IccLang</name>
@@ -1823,8 +1880,12 @@
                 <extensions></extensions>
                 <cmdline></cmdline>
                 <hasPrio>0</hasPrio>
-                <buildSequence>inputOutputBased</buildSequence>
             </data>
+        </settings>
+        <settings>
+            <name>BICOMP</name>
+            <archiveVersion>0</archiveVersion>
+            <data />
         </settings>
         <settings>
             <name>BUILDACTION</name>
@@ -1836,9 +1897,9 @@
         </settings>
         <settings>
             <name>XLINK</name>
-            <archiveVersion>5</archiveVersion>
+            <archiveVersion>4</archiveVersion>
             <data>
-                <version>33</version>
+                <version>30</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>0</debug>
                 <option>
@@ -1851,7 +1912,7 @@
                 </option>
                 <option>
                     <name>OutputFormat</name>
-                    <version>12</version>
+                    <version>11</version>
                     <state>33</state>
                 </option>
                 <option>
@@ -1860,11 +1921,19 @@
                     <state>2</state>
                 </option>
                 <option>
+                    <name>SecondaryOutputFile</name>
+                    <state>(None for the selected format)</state>
+                </option>
+                <option>
                     <name>XDefines</name>
                     <state></state>
                 </option>
                 <option>
                     <name>AlwaysOutput</name>
+                    <state>0</state>
+                </option>
+                <option>
+                    <name>OverlapWarnings</name>
                     <state>0</state>
                 </option>
                 <option>
@@ -1878,6 +1947,18 @@
                 <option>
                     <name>SegmentMap</name>
                     <state>1</state>
+                </option>
+                <option>
+                    <name>ListSymbols</name>
+                    <state>2</state>
+                </option>
+                <option>
+                    <name>PageLengthCheck</name>
+                    <state>0</state>
+                </option>
+                <option>
+                    <name>PageLength</name>
+                    <state>80</state>
                 </option>
                 <option>
                     <name>XIncludes</name>
@@ -2025,7 +2106,7 @@
                 </option>
                 <option>
                     <name>ExtraOutputFormat</name>
-                    <version>12</version>
+                    <version>11</version>
                     <state>23</state>
                 </option>
                 <option>
@@ -2158,34 +2239,6 @@
                     <name>XlinkFRWP</name>
                     <state>1</state>
                 </option>
-                <option>
-                    <name>AddressEntries</name>
-                    <state>1</state>
-                </option>
-                <option>
-                    <name>SymbolListing</name>
-                    <state>0</state>
-                </option>
-                <option>
-                    <name>ModuleMap</name>
-                    <state>1</state>
-                </option>
-                <option>
-                    <name>OutputFormatChecker</name>
-                    <state>0</state>
-                </option>
-                <option>
-                    <name>XlinkEncInput</name>
-                    <state>0</state>
-                </option>
-                <option>
-                    <name>XlinkEncOutput</name>
-                    <state>0</state>
-                </option>
-                <option>
-                    <name>XlinkEncOutputBom</name>
-                    <state>1</state>
-                </option>
             </data>
         </settings>
         <settings>
@@ -2238,6 +2291,11 @@
                     <state>1</state>
                 </option>
             </data>
+        </settings>
+        <settings>
+            <name>BILINK</name>
+            <archiveVersion>0</archiveVersion>
+            <data />
         </settings>
     </configuration>
     <group>
@@ -2380,11 +2438,5 @@
     </group>
     <file>
         <name>$PROJ_DIR$\main.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\motor.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\motor.h</name>
     </file>
 </project>
