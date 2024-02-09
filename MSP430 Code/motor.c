@@ -5,7 +5,6 @@ Implementation of controlling the
 motors on our vehicle
 
 Logan Noonan
-updated 1 feb 2024
 ******************/
 
 #include "motor.h"
@@ -18,10 +17,6 @@ bool initGPIO()
   
   //if failure
   //return false; //an error occured initialising the motor controller
-}
-
-void initADC()
-{
 }
 
 void lab_test_()
