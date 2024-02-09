@@ -11,7 +11,7 @@ general utility functions for the MSP430
 #include <msp430.h>
 #include <driverlib.h>
 
-void initADC();
+void _initADC();
 
 
 

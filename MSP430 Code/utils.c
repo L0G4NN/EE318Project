@@ -6,7 +6,8 @@ implementation of utilitys
 
 #include "utils.h"
 
-void initADC()
+void _initADC()
 {
+    //enable the ADC
     
 }
