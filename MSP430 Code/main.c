@@ -29,13 +29,12 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * --/COPYRIGHT--*/
+
 #include "driverlib.h"
+#include "utils.h"
 #include "motor.h"
-//******************************************************************************
-//!
-//!   Empty Project that includes driverlib
-//!
-//******************************************************************************
+
 void main (void)
 {
+
 }

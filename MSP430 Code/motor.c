@@ -16,7 +16,7 @@ bool initGPIO()
   return true;
   
   //if failure
-  //return false; //an error occured initialising the motor controller
+  //return false; //an error occurred initialising the motor controller
 }
 
 void lab_test_()
