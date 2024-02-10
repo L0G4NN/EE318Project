@@ -1,10 +1,8 @@
 /* utils.c
 Logan Noonan
 
-implementation of utilitys
+implementation of utilities
 */
-
-#include "utils.h"
 
 void _initADC()
 {

@@ -9,11 +9,10 @@ Logan Noonan
 
 #include "utils.h"
 #include <msp430.h>
-#include <driverlib.h>
 
 //list of functions
 
-bool initGPIO();
+void initGPIO();
 void lab_test_();
 
 //unsure if needed yet

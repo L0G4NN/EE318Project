@@ -38,4 +38,8 @@
 *.exe
 *.out
 *.app
-/.metadata/
+
+*/.metadata/
+*/RemoteSystemTempFiles
+*/dvt
+*/.jxbrowser.userdata
