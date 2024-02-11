@@ -7,20 +7,20 @@ Logan Noonan
 #ifndef MOTOR_H
 #define MOTOR_H
 
-#include "utils.h"
 #include <msp430.h>
+//#include <driverlib.h>
 
-//list of functions
-
+//initialisation functions
 void initGPIO();
-void lab_test_();
+void initADC(); //setup ADC for PWM control
 
-//unsure if needed yet
-void drive();
+void _lab_test(); //simple function to test the hardware
+
+//action functions
+void drive(int direction);
 void turnLeft();
 void turnRight();
-void reverse();
-void accel_rate(); //function in how hard we drive / reverse?
+void accel_rate(); //function in how fast we drive spin the motors
 
 
 #endif //MOTOR_H
