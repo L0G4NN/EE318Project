@@ -2,19 +2,20 @@
  * main.c
  * EE318 Group 24
  *
+ * TODO:
+ * Implement interrupts for ADC - and bluetooth?
+ *
  */
 
 #include <msp430.h> 
-//#include <driverlib.h> //dont think its needed whilst using CCS
+//#include <driverlib.h> //unsure if it is needed whilst using CCS
 #include "motor.h"
-/**
- * main.c
- */
 
 
 __interrupt void P1_ISR(void)
 {
     //TODO: SETUP INTERRUPT SERVICE ROUTINE
+	
 }
 
 void main(void)
@@ -28,6 +29,20 @@ void main(void)
 
 	//initialise ADC/PWM
 	initADC();
+
+
+	__enable_interrupt();
+
+	while(true)
+	{
+	    //main program loop
+
+		//Recieve bluetooth signal
+
+		//whatever the signal is, call the appropriate function ie driveForward()
+
+		//if plant button is pressed interrupt and call plantTree()
+	}
 
 
 }

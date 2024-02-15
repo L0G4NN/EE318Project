@@ -1,10 +1,15 @@
 /******************
-motor.c
-
-Implementation of controlling the
-motors on our vehicle
-
-Logan Noonan
+*motor.c
+*
+*Implementation of controlling the
+*motors on our vehicle
+*
+*Logan Noonan
+*TODO:
+*Finish ADC function
+*Finish Test()
+*Finish Drive()
+*Finish Timers function
 ******************/
 
 #include "motor.h"
@@ -23,14 +28,16 @@ void initADC()
 {
     //TODO: FINISH FUNCTION
     //setup the ADC for a PWM signal to control the speed
+}
 
+void initTimers()
+{
 }
 
 void _lab_test_()
 {
     //TODO: FINISH FUNCTION
-    //simple function to test the hardware
-    int direction = 1;
+    int direction = 1; //forward
     drive(direction);
     //start a timer for x amount of time
     //when timer complete - drive backwards
@@ -43,7 +50,7 @@ void _lab_test_()
     turnRight();
 }
 
-void drive(int direction)
+void driveForward()
 {
     //TODO: FINISH FUNCTION
     if(direction == 1)
@@ -54,4 +61,8 @@ void drive(int direction)
     {
         //go backwards
     }
+}
+
+void driveBackward()
+{
 }

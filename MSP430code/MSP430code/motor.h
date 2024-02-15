@@ -13,11 +13,13 @@ Logan Noonan
 //initialisation functions
 void initGPIO();
 void initADC(); //setup ADC for PWM control
+void initTimers(); //setup timers for PWM control
 
 void _lab_test(); //simple function to test the hardware
 
 //action functions
-void drive(int direction);
+void driveForward();
+void driveBackward();
 void turnLeft();
 void turnRight();
 void accel_rate(); //function in how fast we drive spin the motors
