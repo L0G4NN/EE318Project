@@ -37,9 +37,11 @@
 # Executables
 *.exe
 *.out
-*.app
+*.apps
 
+#Composer studio local files
 */.metadata/
 */RemoteSystemTempFiles
 */dvt
 */.jxbrowser.userdata
+*/RemoteSystemTempFiles
