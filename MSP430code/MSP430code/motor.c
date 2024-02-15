@@ -5,6 +5,7 @@
 *motors on our vehicle
 *
 *Logan Noonan
+*Daniel Ofem
 *TODO:
 *Finish ADC function
 *Finish Test()
