@@ -7,10 +7,9 @@
 *Logan Noonan
 *Daniel Ofem
 *TODO:
-*Finish ADC function
-*Finish Test()
 *Finish Drive()
 *Finish Timers function
+*Test on hardware
 ******************/
 
 #include "motor.h"
@@ -22,13 +21,6 @@ void initGPIO()
   //return false; //an error occurred initialising the motor controller
   //setup
   GPIO_setAsOutputPin(0, 0);
-}
-
-
-void initADC()
-{
-    //TODO: FINISH FUNCTION
-    //setup the ADC for a PWM signal to control the speed
 }
 
 void initTimers()

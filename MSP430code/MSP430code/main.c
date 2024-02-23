@@ -3,8 +3,11 @@
  * EE318 Group 24
  *
  * TODO:
- * Implement interrupts for ADC - and bluetooth?
- *
+ * Implement interrupts
+ * Implement bluetooth
+ * Implement PWM of motors
+ * Implement actuation control
+ * 
  */
 
 #include <msp430.h> 
