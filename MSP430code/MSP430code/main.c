@@ -10,6 +10,14 @@
  * 
  */
 
+
+/*
+* MSP430 PIN CONNECTIONS
+* BLUETOOTH: PORT 1 PINS 
+* MOTOR: PORT X PINS Y
+* SERVO: PORT X PINS Y
+*/
+
 #include <msp430.h> 
 //#include <driverlib.h> //unsure if it is needed whilst using CCS
 #include "motor.h"

@@ -20,7 +20,10 @@ void initGPIO()
   //TODO: FINISH FUNCTION
   //return false; //an error occurred initialising the motor controller
   //setup
-  GPIO_setAsOutputPin(0, 0);
+  GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN3|GPIO_PORT_P1, GPIO_PIN4|GPIO_PORT_P1, GPIO_PIN5|GPIO_PORT_P5, GPIO_PORT0);
+  
+  //init all pins to LOW
+  GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN3|GPIO_PORT_P1, GPIO_PIN4|GPIO_PORT_P1, GPIO_PIN5|GPIO_PORT_P5, GPIO_PORT0);
 }
 
 void initTimers()
