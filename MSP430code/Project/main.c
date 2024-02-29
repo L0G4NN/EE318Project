@@ -57,18 +57,17 @@ void main(void)
 
 	__enable_interrupt();
 
-	GPIO_setAsOutputPin(GPIO_PORT_P8, GPIO_PIN0);
+	//SETUP LED INDICATION
+	GPIO_setAsOutputPin(GPIO_PORT_P4, GPIO_PIN0);
+	GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN0);
 
 
-	//main program loop
-	while(true)
+
+	//MAIN PROGRAM LOOP
+	while(1)
 	{
-	    //TOGGLE LED 8.0 TO DISPLAY PROGRAM RUNNING
-	    //TODO: FIX LED
-	    GPIO_setOutputLowOnPin(GPIO_PORT_P8, GPIO_PIN0);
-	    __delay_cycles(1000);
-	    GPIO_setOutputHighOnPin(GPIO_PORT_P8,GPIO_PIN0);
-
+	    _lab_test_();
+	    //delay_us(1);
 	}
 }
 
