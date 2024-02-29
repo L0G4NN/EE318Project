@@ -13,13 +13,13 @@
 
 /*
 * MSP430 PIN CONNECTIONS
-* BLUETOOTH: PORT 1 PINS 
+* BLUETOOTH: PORT 1 PINS 0 TX,1 RX
 * MOTOR: PORT X PINS Y
 * SERVO: PORT X PINS Y
 */
 
 #include <msp430.h> 
-//#include <driverlib.h> //unsure if it is needed whilst using CCS
+#include <driverlib.h> //unsure if it is needed whilst using CCS
 #include "motor.h"
 
 
@@ -53,7 +53,6 @@ void main(void)
 
 	//initialise timers
 	initTimers();
-
 
 	__enable_interrupt();
 
