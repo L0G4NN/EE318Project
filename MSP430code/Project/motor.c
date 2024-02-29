@@ -20,7 +20,6 @@ int direction = 1; //default to forwards
 void initMotors()
 {
   //TODO: FINISH FUNCTION
-  //return false; //an error occurred initialising the motor controller
   //setup
   GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN3);
   GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN4);
@@ -52,7 +51,7 @@ void _lab_test_()
     turnRight();
 }
 
-void driveForward()
+void drive(int direction)
 {
     //TODO: FINISH FUNCTION
     if(direction == 1)
@@ -65,6 +64,3 @@ void driveForward()
     }
 }
 
-void driveBackward()
-{
-}

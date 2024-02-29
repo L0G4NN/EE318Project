@@ -19,8 +19,7 @@ void initTimers(); //setup timers for PWM control
 //UNSURE IF INITADC AND INITTIMERS ARE REALLY NEEDED AS THEY ARE SETUP IN MAIN
 
 //action functions
-void driveForward();
-void driveBackward();
+void drive(int direction);
 void turnLeft();
 void turnRight();
 void accel_rate(); //function in how fast we drive spin the motors

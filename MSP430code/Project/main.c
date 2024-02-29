@@ -58,15 +58,18 @@ void main(void)
 	__enable_interrupt();
 
 	GPIO_setAsOutputPin(GPIO_PORT_P8, GPIO_PIN0);
+
+
 	//main program loop
 	while(true)
 	{
+	    //TOGGLE LED 8.0 TO DISPLAY PROGRAM RUNNING
+	    //TODO: FIX LED
 	    GPIO_setOutputLowOnPin(GPIO_PORT_P8, GPIO_PIN0);
 	    __delay_cycles(1000);
 	    GPIO_setOutputHighOnPin(GPIO_PORT_P8,GPIO_PIN0);
+
 	}
-
-
 }
 
 
