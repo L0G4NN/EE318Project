@@ -20,6 +20,7 @@
 
 #include <msp430.h> 
 #include <driverlib.h> //unsure if it is needed whilst using CCS
+//#include "Board.h" //unsure if we need this - dont think we do
 #include "motor.h"
 
 
