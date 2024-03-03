@@ -10,6 +10,8 @@
 *Finish Drive()
 *Finish Timers function
 *Test on hardware
+*
+* https://dev.ti.com/tirex/explore/node?node=A__AMqhsgBhm3-jH1WI3FE0eA__msp430ware__IOGqZri__LATEST
 ******************/
 
 #include "motor.h"
@@ -22,6 +24,7 @@
 #define LED_3_ON GPIO_toggleOutputOnPin(GPIO_PORT_P5, GPIO_PIN2)
 #define LED_4_ON GPIO_toggleOutputOnPin(GPIO_PORT_P5, GPIO_PIN3)
 
+//MOTORS A AND B
 #define MOTOR_A_1_FWD GPIO_toggleOutputOnPin(GPIO_PORT_P1, GPIO_PIN3)
 #define MOTOR_A_2_OFF GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN4)
 
@@ -39,34 +42,24 @@
 void initMotors()
 {
   //TODO: FINISH FUNCTION
-  //Initialise pins 1.3,1.4,1.5 and 5.0 for the motor control signals
-  GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN3);
-  GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN4);
-  GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN5);
-  GPIO_setAsOutputPin(GPIO_PORT_P5, GPIO_PIN0);
-  
-  //init LED visualisation pins
-  GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN7);
-  GPIO_setAsOutputPin(GPIO_PORT_P8, GPIO_PIN0);
-  GPIO_setAsOutputPin(GPIO_PORT_P5, GPIO_PIN1);
-  GPIO_setAsOutputPin(GPIO_PORT_P5, GPIO_PIN2);
-  GPIO_setAsOutputPin(GPIO_PORT_P5, GPIO_PIN3);
-
-  //init all pins to LOW
-//  GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN3);
-//  GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN4);
-//  GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN5);
-//  GPIO_setOutputLowOnPin(GPIO_PORT_P5, GPIO_PIN0);
-
-  GPIO_setOutputLowOnPin(GPIO_PORT_P8, GPIO_PIN0);
-  GPIO_setOutputLowOnPin(GPIO_PORT_P5, GPIO_PIN1);
-  GPIO_setOutputLowOnPin(GPIO_PORT_P5, GPIO_PIN2);
-  GPIO_setOutputLowOnPin(GPIO_PORT_P5, GPIO_PIN3);
 }
 
 void initTimers() //taken from Timers Lab
 {
-    //TODO: FINISH FUNCTION
+
+    GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P4, GPIO_PIN0, GPIO_PRIMARY_MODULE_FUNCTION);
+    int DUTY_CYCLE = 100;
+    int TIMER_A_PERIOD = 1000;
+    //TODO: FINISH FUNCTION - INITIALISE THE TIMERS FOR PWM
+    Timer_A_outputPWMParam param = {0};
+    param.clockSource = TIMER_A_CLOCKSOURCE_ACLK;
+    param.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_32;
+    param.timerPeriod = TIMER_A_PERIOD;
+    param.compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_1;
+    param.compareOutputMode = TIMER_A_OUTPUTMODE_RESET_SET;
+    param.dutyCycle = DUTY_CYCLE;
+
+    Timer_A_outputPWM(TIMER_A1_BASE, &param);
 }
 
 void delay_us(int microseconds)
@@ -81,37 +74,6 @@ void _lab_test_()
 {
     //TODO: FINISH TEST FUNCTION
 
-    drive('w');
 }
 
-void drive(char signal)
-{
-    //TODO: FINISH FUNCTION
-    LED_CATHODE_OFF;
-    if(signal == 'w') //drive forwards
-    {
-        //IN1 AND IN3 TOGGLED HIGH, IN2 AND IN4 LOW
-        MOTOR_A_1_FWD;
-        MOTOR_A_2_OFF;
-        MOTOR_B_1_FWD;
-        MOTOR_B_2_OFF;
-
-        //REPRESENT ON LEDs ALSO FOR VISUALISATION
-        LED_1_ON;
-        LED_3_ON;
-        LED_CATHODE_OFF;
-
-        //delay
-        delay_us(10000); //NOT A TRUE VALUE - WILL NEED TO CHANGE
-    }
-    else if(signal == 'a') //turn left
-    {
-    }
-    else if(signal == 'd') //turn right
-    {
-    }
-    else if(signal == 's') //backwards
-    {
-    }
-}
 

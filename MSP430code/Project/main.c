@@ -22,6 +22,7 @@
 #include <driverlib.h> //unsure if it is needed whilst using CCS
 //#include "Board.h" //unsure if we need this - dont think we do
 #include "motor.h"
+#include "bluetooth.h"
 
 
 //Interrupts
@@ -39,9 +40,6 @@ __interrupt void P1_ISR(void) //interrupts on PORT1
 	}
 }
 
-//interrupt handler for the timer
-//see user guide 11.2.6 and msp430fr4133 line 3016
-
 void main(void)
 {
 	//Default MCLK = 1MHz and SMCLK = MCLK
@@ -49,25 +47,16 @@ void main(void)
 	PM5CTL0 &= ~LOCKLPM5;
 	PMM_unlockLPM5();
 
-	//initialise motor pins
-	initMotors();
-
 	//initialise timers
 	initTimers();
 
 	__enable_interrupt();
-
-	//SETUP LED INDICATION
-	GPIO_setAsOutputPin(GPIO_PORT_P4, GPIO_PIN0);
-	GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN0);
-
-
+	__bis_SR_register(LPM0_bits);
 
 	//MAIN PROGRAM LOOP
 	while(1)
 	{
 	    _lab_test_();
-	    //delay_us(1);
 	}
 }
 
