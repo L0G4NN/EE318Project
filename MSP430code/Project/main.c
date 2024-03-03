@@ -44,7 +44,7 @@ void main(void)
 {
 	//Default MCLK = 1MHz and SMCLK = MCLK
 	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
-	PM5CTL0 &= ~LOCKLPM5;
+	//PM5CTL0 &= ~LOCKLPM5;
 	PMM_unlockLPM5();
 
 	//initialise timers
@@ -53,6 +53,7 @@ void main(void)
 	__enable_interrupt();
 	__bis_SR_register(LPM0_bits);
 
+	GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN7);
 	//MAIN PROGRAM LOOP
 	while(1)
 	{

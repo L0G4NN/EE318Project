@@ -17,27 +17,6 @@
 #include "motor.h"
 #include <driverlib.h>
 
-//Using LEDs to visualise the motor pulses
-#define LED_CATHODE_OFF GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN7) //set cathode to LOW
-#define LED_1_ON GPIO_toggleOutputOnPin(GPIO_PORT_P8, GPIO_PIN0)
-#define LED_2_ON GPIO_toggleOutputOnPin(GPIO_PORT_P5, GPIO_PIN1)
-#define LED_3_ON GPIO_toggleOutputOnPin(GPIO_PORT_P5, GPIO_PIN2)
-#define LED_4_ON GPIO_toggleOutputOnPin(GPIO_PORT_P5, GPIO_PIN3)
-
-//MOTORS A AND B
-#define MOTOR_A_1_FWD GPIO_toggleOutputOnPin(GPIO_PORT_P1, GPIO_PIN3)
-#define MOTOR_A_2_OFF GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN4)
-
-#define MOTOR_A_2_RVRS GPIO_toggleOutputOnPin(GPIO_PORT_P1, GPIO_PIN4)
-#define MOTOR_A_1_OFF GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN3)
-
-#define MOTOR_B_1_FWD GPIO_toggleOutputOnPin(GPIO_PORT_P1, GPIO_PIN5)
-#define MOTOR_B_2_OFF GPIO_setOutputLowOnPin(GPIO_PORT_P5, GPIO_PIN0)
-
-#define MOTOR_B_2_RVRS GPIO_toggleOutputOnPin(GPIO_PORT_P5, GPIO_PIN0)
-#define MOTOR_B_1_OFF GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN5)
-
-
 //Set the output pins for ENABLE1&2, and inputs 1A,2A,3A,4A of the motor.
 void initMotors()
 {
@@ -47,6 +26,7 @@ void initMotors()
 void initTimers() //taken from Timers Lab
 {
 
+    //TODO: CAN SET THE PWM SIGNAL ONTO PORT 4 PIN 0 - ONBOARD LED FINE. NEED TO SETUP PWM ONTO THE OUTPUT PINS AND MEASURE RESPONSE IN THE LAB
     GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P4, GPIO_PIN0, GPIO_PRIMARY_MODULE_FUNCTION);
     int DUTY_CYCLE = 100;
     int TIMER_A_PERIOD = 1000;
