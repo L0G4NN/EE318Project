@@ -15,7 +15,7 @@ PORT 1 PINS 3,4,5 AND PORT 5 PINS 0
 //initialisation functions
 void initMotors();
 void initADC(); //setup ADC for PWM control
-void initTimers(); //setup timers for PWM control
+void initPWMTimers(); //setup timers for PWM control
 //UNSURE IF INITADC AND INITTIMERS ARE REALLY NEEDED AS THEY ARE SETUP IN MAIN
 
 //action functions
