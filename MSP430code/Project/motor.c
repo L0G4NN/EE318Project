@@ -58,13 +58,13 @@ void initPWMTimers()
     TA0CTL |= TACLR;
 
     //Control registers
-    TA0CTL |= TASSEL__ACLK; //init ACLK
-    TA0CTL |= ID__8; //Divide ACLK by 8
+    TA0CTL |= TASSEL__ACLK; //init ACLK 32.768kHz
+    TA0CTL |= ID__8; //Divide ACLK by 8 - 4.096kHz
     TA0CTL |= MC_1; //Set UP mode
 
     //Capture compare registers
-    TA0CCR0 = 1000;
-    TA0CCR1 = 150;
+    TA0CCR0 = 4096; // delta t = T * N
+    TA0CCR1 = 819; //equates to 200ms
 
     //Enable interrupts on capture compare
 
