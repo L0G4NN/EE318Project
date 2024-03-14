@@ -21,7 +21,7 @@
 #include <msp430.h>
 #include <driverlib.h> //unsure if it is needed whilst using CCS
 #include "motor.h"
-
+#include "bluetooth.h"
 
 //Interrupts
 unsigned char SW1_interruptFlag = 0;
@@ -69,11 +69,15 @@ void main(void)
 	//initialise timers
 	initTimers();
 
+	bluetooth_init();
+
 	//MAIN PROGRAM LOOP
 	while(1)
 	{
 	    _lab_test_();
 	    //delay_us(1);
+
+	    bluetooth_check();
 	}
 }
 
