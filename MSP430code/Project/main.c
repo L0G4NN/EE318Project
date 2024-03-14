@@ -7,7 +7,7 @@
  * Implement bluetooth
  * Implement PWM of motors
  * Implement actuation control
- * 
+ *
  */
 
 
@@ -18,7 +18,7 @@
 * SERVO: PORT X PINS Y
 */
 
-#include <msp430.h> 
+#include <msp430.h>
 #include <driverlib.h> //unsure if it is needed whilst using CCS
 #include "motor.h"
 
