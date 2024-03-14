@@ -76,8 +76,8 @@ void initTimers()
 
 
     //SETUP PORTS
-    P4DIR = BIT0;
-    P4OUT &= ~BIT0;
+    P4DIR |= BIT0;
+    P4OUT |= BIT0; //P4.0 LED initially set to HIGH
 
 }
 

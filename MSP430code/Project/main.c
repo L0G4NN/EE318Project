@@ -39,19 +39,19 @@ __interrupt void P1_ISR(void) //interrupts on PORT1
 }
 
 //ISR for CCR0 and CCR1 capture compare registeres - to set PWM
-#pragma vector = TIMER0_A0_VECTOR
+#pragma vector = TIMER0_0_VECTOR
 __interrupt void ISR_TA0_CCR0(void)
 {
     P4OUT |= BIT0; //SET LED HIGH
-    TA1CCTL0 &= ~CCIFG;
+    TA1CCTL0 &= ~CCIFG; //clear interrupt flag
 
 }
 
 #pragma vector = TIMER0_A1_VECTOR
 __interrupt void ISR_TA0_CCR1(void)
 {
-    P4OUT &= ~BIT0;
-    TA1CCTL1 %= ~CCIFG;
+    P4OUT &= ~BIT0; //SET LED LOW
+    TA1CCTL1 %= ~CCIFG; //clear interrupt
 
 }
 
@@ -69,7 +69,6 @@ void main(void)
 	//initialise timers
 	initTimers();
 
-	GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN7);
 	//MAIN PROGRAM LOOP
 	while(1)
 	{
