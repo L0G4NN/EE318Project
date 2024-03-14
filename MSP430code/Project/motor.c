@@ -54,10 +54,30 @@ void initMotors()
 
 void initTimers()
 {
-    TACCR0 = 1000-1; //PWM PERIOD
-    TA0CCTL2 = OUTMOD_7; //OUTPUTMODE TOGGLE_SET_RESET
-    TA1CCR1 = 500-1; //DUTY CYCLE
-    TA0CTL = TASSEL__ACLK | ID__8 | MC_1;
+    //SETUP TIMERS
+    TA0CTL |= TACLR;
+
+    TA0CTL |= TASSEL__ACLK; //init ACLK
+    TA0CTL |= ID__8; //Divide ACLK by 8
+    TA0CTL |= MC_1; //Set UP mode
+
+    //Capture compare registers
+    TA0CCR0 = 1000;
+    TA0CCR1 = 150;
+
+    //Enable interrupts on capture compare
+
+    TA0CCTL0 |= CM_1; //Rising edge
+    TA0CCTL0 |= CCIS_0; //compare to the value stored in CCR0
+    TA0CCTL0 |= OUTMOD_7;
+    TA0CCTL0 |= CCIE;
+
+
+
+
+    //SETUP PORTS
+    P4DIR = BIT0;
+    P4OUT &= ~BIT0;
 
 }
 

@@ -38,6 +38,23 @@ __interrupt void P1_ISR(void) //interrupts on PORT1
 	}
 }
 
+//ISR for CCR0 and CCR1 capture compare registeres - to set PWM
+#pragma vector = TIMER0_A0_VECTOR
+__interrupt void ISR_TA0_CCR0(void)
+{
+    P4OUT |= BIT0; //SET LED HIGH
+    TA1CCTL0 &= ~CCIFG;
+
+}
+
+#pragma vector = TIMER0_A1_VECTOR
+__interrupt void ISR_TA0_CCR1(void)
+{
+    P4OUT &= ~BIT0;
+    TA1CCTL1 %= ~CCIFG;
+
+}
+
 //interrupt handler for the timer
 //see user guide 11.2.6 and msp430fr4133 line 3016
 
