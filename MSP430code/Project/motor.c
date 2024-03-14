@@ -52,11 +52,12 @@ void initMotors()
  *
  */
 
-void initTimers()
+void initPWMTimers()
 {
     //SETUP TIMERS
     TA0CTL |= TACLR;
 
+    //Control registers
     TA0CTL |= TASSEL__ACLK; //init ACLK
     TA0CTL |= ID__8; //Divide ACLK by 8
     TA0CTL |= MC_1; //Set UP mode
@@ -68,16 +69,18 @@ void initTimers()
     //Enable interrupts on capture compare
 
     TA0CCTL0 |= CM_1; //Rising edge
-    TA0CCTL0 |= CCIS_0; //compare to the value stored in CCR0
+    TA0CCTL0 |= CCIS_1; //compare to the value stored in CCR1
     TA0CCTL0 |= OUTMOD_7;
     TA0CCTL0 |= CCIE;
-
-
 
 
     //SETUP PORTS
     P4DIR |= BIT0;
     P4OUT |= BIT0; //P4.0 LED initially set to HIGH
+
+    //MOTOR PORTS
+
+    //LED VISUALISATION PORTS
 
 }
 
@@ -101,7 +104,7 @@ void drive(char signal)
     //TODO: FINISH FUNCTION
     if(signal == 'w') //drive forwards
     {
-        initTimers();
+        initPWMTimers();
     }
     else if(signal == 'a') //turn left
     {

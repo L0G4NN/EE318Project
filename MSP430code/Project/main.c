@@ -67,7 +67,7 @@ void main(void)
     __enable_interrupt();
 
 	//initialise timers
-	initTimers();
+	initPWMTimers();
 
 	//MAIN PROGRAM LOOP
 	while(1)

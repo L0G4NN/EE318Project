@@ -15,9 +15,10 @@ void initialise_actuator(){
 
 void turn_forward(){
     //setting up clock
-    TA1CCTL |= TASSEL_2;
-    TA1CCTL |= ID_4;
-    TA1CCTL |= TACLR;
+    TA1CCTL0 |= TASSEL__ACLK;
+    TA1CCTL0 |= ID__8;
+    TA1CCTL0 |= TACLR;
+
     
 }
 
