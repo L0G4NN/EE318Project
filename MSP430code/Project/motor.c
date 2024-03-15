@@ -54,29 +54,33 @@ void initMotors()
 
 void initPWMTimers()
 {
-    //SETUP TIMERS
-    TA0CTL |= TACLR;
-
-    //Control registers
-    TA0CTL |= TASSEL__ACLK; //init ACLK 32.768kHz
-    TA0CTL |= ID__8; //Divide ACLK by 8 - 4.096kHz
-    TA0CTL |= MC_1; //Set UP mode
-
-    //Capture compare registers
-    TA0CCR0 = 4096; // delta t = T * N
-    TA0CCR1 = 819; //equates to 200ms
-
-    //Enable interrupts on capture compare
-
-    TA0CCTL0 |= CM_1; //Rising edge
-    TA0CCTL0 |= CCIS_1; //compare to the value stored in CCR1
-    TA0CCTL0 |= OUTMOD_7;
-    TA0CCTL0 |= CCIE;
-
-
     //SETUP PORTS
     P4DIR |= BIT0;
     P4OUT |= BIT0; //P4.0 LED initially set to HIGH
+
+    //Setup timer control registers
+    TA0CTL |= TACLR; // -- clear the timer to init
+    TA0CTL |= TASSEL__ACLK; //init ACLK 32.768kHz
+    //TA0CTL |= ID__8; //Divide ACLK by 8 - 4.096kHz
+    TA0CTL |= MC__UP; //Set UP mode
+
+    //Capture compare registers
+    TA0CCR0 = 4096; // delta t = T * N - set PWM period
+    TA0CCR1 = 1638; //equates to roughly 200ms - set PWM duty cycle
+
+    //Enable interrupts on capture compare
+
+    //TA0CCTL0 |= CM_1; //Rising edge
+    //TA0CCTL0 |= CCIS_1; //compare to the value stored in CCR1
+    //TA0CCTL0 |= OUTMOD_7;
+    TA0CCTL0 |= CCIE; //local enable for CCR0
+    TA0CCTL1 |= CCIE;
+
+    //clear any interrupts
+    TA0CCTL0 &= ~CCIFG;
+    TA0CCTL1 &= ~CCIFG;
+
+    //__enable_interrupt();
 
     //MOTOR PORTS
 

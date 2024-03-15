@@ -39,11 +39,11 @@ __interrupt void P1_ISR(void) //interrupts on PORT1
 }
 
 //ISR for CCR0 and CCR1 capture compare registeres - to set PWM
-#pragma vector = TIMER0_0_VECTOR
+#pragma vector = TIMER0_A0_VECTOR
 __interrupt void ISR_TA0_CCR0(void)
 {
     P4OUT |= BIT0; //SET LED HIGH
-    TA1CCTL0 &= ~CCIFG; //clear interrupt flag
+    TA0CCTL0 &= ~CCIFG; //clear interrupt flag
 
 }
 
@@ -51,7 +51,7 @@ __interrupt void ISR_TA0_CCR0(void)
 __interrupt void ISR_TA0_CCR1(void)
 {
     P4OUT &= ~BIT0; //SET LED LOW
-    TA1CCTL1 %= ~CCIFG; //clear interrupt
+    TA0CCTL1 %= ~CCIFG; //clear interrupt
 
 }
 
@@ -62,8 +62,7 @@ void main(void)
 {
 	//Default MCLK = 1MHz and SMCLK = MCLK
 	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
-	//PM5CTL0 &= ~LOCKLPM5;
-	PMM_unlockLPM5();
+	PM5CTL0 &= ~LOCKLPM5;
     __enable_interrupt();
 
 	//initialise timers
@@ -74,7 +73,7 @@ void main(void)
 	//MAIN PROGRAM LOOP
 	while(1)
 	{
-	    _lab_test_();
+	    //_lab_test_();
 	    //delay_us(1);
 
 	    bluetooth_check();
