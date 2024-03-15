@@ -12,6 +12,8 @@
 *Test on hardware
 *
 *https://dev.ti.com/tirex/explore/node?node=A__AMqhsgBhm3-jH1WI3FE0eA__msp430ware__IOGqZri__LATEST
+*Brock J. LaMers - Embedded Systems Design
+*http://www.msp430launchpad.com/2010/07/timers-and-clocks-and-pwm-oh-my.html
 ******************/
 
 #include "motor.h"
@@ -65,8 +67,8 @@ void initPWMTimers()
     TA0CTL |= MC__UP; //Set UP mode
 
     //Capture compare registers
-    TA0CCR0 = 4096; // delta t = T * N - set PWM period
-    TA0CCR1 = 1638; //equates to roughly 200ms - set PWM duty cycle
+    TA0CCR0 = 33; // delta t = T * N - set PWM period
+    TA0CCR1 = 16;
 
     //Enable interrupts on capture compare
 
@@ -85,6 +87,18 @@ void initPWMTimers()
     //MOTOR PORTS
 
     //LED VISUALISATION PORTS
+    P2DIR |= BIT7;
+    P2OUT &= ~BIT7; //set 2.7 cathode low
+
+    P8DIR |= BIT0; //LED 1
+    //P8OUT |= BIT0;
+    P5DIR |= BIT1; //LED 2
+    //P5OUT |= BIT2;
+    P5DIR |= BIT2; //LED 3
+    //P5DIR |= BIT2;
+    P5DIR |= BIT4; //LED 4
+    //P5OUT |= BIT4;
+
 
 }
 
@@ -105,7 +119,7 @@ void _lab_test_()
 
 void drive(char signal)
 {
-    //TODO: FINISH FUNCTION
+    //TODO: FINISH FUNCTION NOW PWM WORKS
     if(signal == 'w') //drive forwards
     {
         initPWMTimers();

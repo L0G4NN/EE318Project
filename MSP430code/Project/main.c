@@ -43,6 +43,7 @@ __interrupt void P1_ISR(void) //interrupts on PORT1
 __interrupt void ISR_TA0_CCR0(void)
 {
     P4OUT |= BIT0; //SET LED HIGH
+    P8OUT |= BIT0;
     TA0CCTL0 &= ~CCIFG; //clear interrupt flag
 
 }
@@ -51,6 +52,7 @@ __interrupt void ISR_TA0_CCR0(void)
 __interrupt void ISR_TA0_CCR1(void)
 {
     P4OUT &= ~BIT0; //SET LED LOW
+    P8OUT &= ~BIT0;
     TA0CCTL1 %= ~CCIFG; //clear interrupt
 
 }
@@ -61,7 +63,8 @@ __interrupt void ISR_TA0_CCR1(void)
 void main(void)
 {
 	//Default MCLK = 1MHz and SMCLK = MCLK
-	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
+
+    WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
 	PM5CTL0 &= ~LOCKLPM5;
     __enable_interrupt();
 
