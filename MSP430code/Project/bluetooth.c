@@ -27,10 +27,10 @@ void bluetooth_check() {
 
         // Check received character and control LED accordingly
         switch (received_char) {
-            case '0':
+            case '1':
                 P1OUT |= LED; // Turn on LED
                 break;
-            case '1':
+            case '0':
                 P1OUT &= ~LED; // Turn off LED
                 break;
             default:
