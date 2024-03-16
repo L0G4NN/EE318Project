@@ -1,9 +1,9 @@
 /******************
-motor.h
+    motor.h
 
-Logan Noonan
+    Logan Noonan
 
-PORT 1 PINS 3,4,5 AND PORT 5 PINS 0
+    PORT 1 PINS 5,6,7 AND PORT 5 PINS 0
 ******************/
 
 #ifndef MOTOR_H
@@ -14,15 +14,11 @@ PORT 1 PINS 3,4,5 AND PORT 5 PINS 0
 
 //initialisation functions
 void initMotors();
-void initADC(); //setup ADC for PWM control
-void initPWMTimers(); //setup timers for PWM control
-//UNSURE IF INITADC AND INITTIMERS ARE REALLY NEEDED AS THEY ARE SETUP IN MAIN
+void initPWMTimers();   //setup timers for PWM control
 
-//action functions
 void drive(char bluetooth_signal);
-void accel_rate(); //function in how fast we drive spin the motors
 void delay_us(int microseconds);
 
-void _lab_test_(); //simple function to test the hardware
+void _lab_test_();  //simple function to test the hardware
 
 #endif //MOTOR_H
