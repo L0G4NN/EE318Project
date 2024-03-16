@@ -23,6 +23,8 @@
 #include "motor.h"
 #include "bluetooth.h"
 
+
+/*
 //Interrupts
 unsigned char SW1_interruptFlag = 0;
 
@@ -66,7 +68,7 @@ __interrupt void ISR_TA0_CCR1(void)
 
     TA0CCTL1 %= ~CCIFG; //clear interrupt
 }
-
+*/
 
 void main(void)
 {
@@ -80,14 +82,14 @@ void main(void)
     initMotors();
 	initPWMTimers();
 
-	//bluetooth_init();
+	bluetooth_init();
 
 	//MAIN PROGRAM LOOP
 	while(1)
 	{
 	    //_lab_test_();
 	    //delay_us(1);
-	    //bluetooth_check();
+	    bluetooth_check();
 	}
 }
 

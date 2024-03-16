@@ -46,17 +46,17 @@ void initMotors()
 void initPWMTimers()
 {
     //SETUP PORTS
-<<<<<<< HEAD
+//<<<<<<< HEAD
     //P4DIR |= BIT0;
     //P4OUT |= BIT0; //P4.0 LED initially set to HIGH
-=======
-    P4DIR |= BIT0;
-    P4OUT |= BIT0;  //P4.0 LED initially set to HIGH
-    P1OUT |= BIT7;
-<<<<<<< Updated upstream
-=======
->>>>>>> 131714a7287d26c2590c3ac68f6e3e18d221dd6a
->>>>>>> Stashed changes
+//=======
+   // P4DIR |= BIT0;
+   // P4OUT |= BIT0;  //P4.0 LED initially set to HIGH
+   // P1OUT |= BIT7;
+//<<<<<<< Updated upstream
+//=======
+// >>>>>>> 131714a7287d26c2590c3ac68f6e3e18d221dd6a
+//>>>>>>> Stashed changes
 
     //Setup timer control registers
     //TA0CTL |= TACLR;    // -- clear the timer to init

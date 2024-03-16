@@ -1,25 +1,32 @@
 #include <msp430.h>
 #include "bluetooth.h"
 
-#define RXD BIT1
-#define LED BIT0
 
 void bluetooth_init() {
+
+    WDTCTL=WDTPW | WDTHOLD;
+
+    UCA0CTLW0 |= UCSWRST; // Put UART module in reset state
+    UCA0CTLW0 |= UCSSEL__SMCLK; // Select SMCLK as clock source (assuming SMCLK is running at desired frequency)
+    UCA0BRW = 6; // Set baud rate to 9600 with SMCLK at 1 MHz (see Table 36-5 in MSP430FR4xx Family User's Guide)
+    UCA0CTLW0 &= ~UCSWRST;
+
+
     // Initialise UART
-    P1SEL0 |= RXD; // Set RXD pin to UART mode
+
+
+    P1SEL0 |= BIT1; // Set RXD pin to UART mode
 
 
     // Configure LED pin
-    P4DIR |= LED; // Set LED pin as output
-    P4OUT &= ~LED; // Turn off LED
+    P4DIR |= BIT0; // Set LED pin as output
+    P4OUT &= ~BIT0; // Turn off LED
 
-    // Configure UART settings
-    UCA0CTLW0 |= UCSWRST; // Put eUSCI in reset
-    UCA0CTLW0 |= UCSSEL__SMCLK; // Select SMCLK as clock source
-    UCA0BRW = 52; // Set baud rate to 9600 (assuming 1 MHz SMCLK)
-    UCA0MCTLW |= UCOS16 | UCBRF_1 | 0x4900; // Modulation UCBRSx = 0x49, UCBRFx = 1
-    UCA0CTLW0 &= ~UCSWRST; // Initialise eUSCI
-    UCA0IE |= UCRXIE; // Enable USCI_A0 RX interrupt
+    PM5CTL0 &= ~LOCKLPM5;
+
+
+
+
 
 }
 
@@ -30,10 +37,10 @@ void bluetooth_check() {
         // Check received character and control LED accordingly
         switch (received_char) {
             case '1':
-                P4OUT |= LED; // Turn on LED
+                P4OUT |= BIT1; // Turn on LED
                 break;
             case '0':
-                P4OUT &= ~LED; // Turn off LED
+                P4OUT &= ~BIT1; // Turn off LED
                 break;
             default:
                 break;
