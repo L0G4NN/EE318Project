@@ -44,12 +44,11 @@ char signal = 'w';   //for testing purposes -- will be set by bluetooth in pract
 #pragma vector = TIMER0_A0_VECTOR
 __interrupt void ISR_TA0_CCR0(void)
 {
-    P4OUT |= BIT0;  //SET LED HIGH
-    P8OUT |= BIT0;
+    //Reference pulse
+    P4OUT &= ~BIT0;  //SET LED HIGH
+    //P8OUT |= BIT0;
 
-    P1OUT |= BIT7;
-
-    //drive(signal);
+    drive(signal);
 
     TA0CCTL0 &= ~CCIFG; //clear interrupt flag
 }
@@ -57,14 +56,12 @@ __interrupt void ISR_TA0_CCR0(void)
 #pragma vector = TIMER0_A1_VECTOR
 __interrupt void ISR_TA0_CCR1(void)
 {
-    P4OUT &= ~BIT0; //SET LED LOW
-    P8OUT &= ~BIT0;
+    P4OUT |= BIT0; //SET LED LOW
+    //P8OUT &= ~BIT0;
 
-    P1OUT &= ~BIT7;
+    drive(signal);
 
-    //drive(signal);
-
-    TA0CCTL1 %= ~CCIFG; //clear interrupt
+    TA0CCTL1 &= ~CCIFG; //clear interrupt
 }
 
 

@@ -24,8 +24,8 @@ void initMotors()
 {
     //MOTOR PORTS
     /*
-     * Motor A - P1.7, P1.6 -- Left hand side
-     * Motor B - P1.5, P5.0 -- Right hand side
+     *  Motor A - P1.7, P1.6 -- Left hand side
+     *  Motor B - P1.5, P5.0 -- Right hand side
      */
 
     P1DIR |= BIT7;
@@ -40,32 +40,45 @@ void initMotors()
     P8DIR |= BIT0;  //LED1
     P5DIR |= BIT1;  //LED2
     P5DIR |= BIT2;  //LED3
-    P5DIR |= BIT4;  //LED4
+    P5DIR |= BIT3;  //LED4
+
+    //INIT ALL LOW
+    P1OUT &= ~BIT7;
+    P1OUT &= ~BIT6;
+    P1OUT &= ~BIT5;
+    P5OUT &= ~BIT0;
+
+    P8OUT &= ~BIT0;
+    P5OUT &= ~BIT1;
+    P5OUT &= ~BIT2;
+    P5OUT &= ~BIT3;
+
 }
 
 void initPWMTimers()
 {
     //SETUP PORTS
     P4DIR |= BIT0;
-    P4OUT |= BIT0;  //P4.0 LED initially set to HIGH
-    P1OUT |= BIT7;
+    P4OUT &= ~BIT0;  //P4.0 LED initially set to LOW
 
     //Setup timer control registers
     //TA0CTL |= TACLR;    // -- clear the timer to init
     TA0CTL |= TASSEL__ACLK; //init ACLK 32.768kHz
-    TA0CTL |= ID__8;  //Divide ACLK by 8 - 4.096kHz
+    //TA0CTL |= ID__8;  //Divide ACLK by 8 - 4.096kHz
     TA0CTL |= MC__UP;   //Set UP mode
 
     //Capture compare registers
-    //TODO: FIGURE OUT APPROPRIATE TIMING VALUES
-    TA0CCR0 = 65535;   //delta t = T * N - set PWM period
-    TA0CCR1 = 2054;
+    //TODO: MEASURE OUTPUT WAVE IN LAB, MAKE SURE REGISTER VALUES ARE CORRECT WAY ROUND
+    //      MAKE SURE OUTMOD IS CORRECTLY SET
+    TA0CCR0 = 32768;    //delta t = T * N - set PWM period
+    TA0CCR1 = 800;  //Amount of LOW time in the signal -- USERGUIDE page 329
 
-    TA0CCTL0 |= CM_1; //Rising edge
+    TA0CCTL0 |= CM_1;   //Rising edge
     TA0CCTL0 |= CCIS_1;   //compare to the value stored in CCR1
-    TA0CCTL0 |= OUTMOD_6;
-//    TA0CCTL0 |= CCIE;   //local interrupt enable for CCR0
-//    TA0CCTL1 |= CCIE;
+    TA0CCTL0 |= OUTMOD_3;
+    //TA0CCTL1 |= OUTMOD_3;
+    TA0CCTL0 |= CCIE;   //local interrupt enable for CCR0
+    TA0CCTL1 |= CCIE;
 
     //clear any interrupts
     TA0CCTL0 &= ~CCIFG;
@@ -89,44 +102,66 @@ void _lab_test_()
 
 void drive(char signal)
 {
+    static volatile int STATE;
+    STATE ^= 1;
     //TODO: FINISH FUNCTION NOW PWM WORKS -- THIS DOES NOT WORK AS EXPECTED
     switch (signal) {
-        case 'w':
-            P1OUT ^= BIT7;  //Toggle PIN
-            P1OUT ^= BIT5;
 
-            //P8OUT ^= BIT0;  //LED PINS
-            //P5OUT ^= BIT2;
+        case 'w':
+            if(STATE)
+            {
+                P1OUT ^= BIT7;  //Toggle PIN
+                P1OUT ^= BIT5;
+
+                P8OUT ^= BIT0;
+                P5OUT ^= BIT2;
+                STATE = !STATE;
+            }
             break;
+
         case 'a':
-            //Toggle RIGHT motor, LEFT motor stationary -- maybe backwards?
-            P1OUT &= ~BIT7;
-            //P1OUT ^= BIT6;
-            P1OUT ^= BIT5;
+            if(STATE)
+            {
+                P1OUT ^= BIT6;
+                P1OUT ^= BIT5;
+
+                P5OUT ^= BIT1;
+                P5OUT ^= BIT2;
+                STATE = !STATE;
+            }
             break;
 
         case 'd':
             //Toggle LEFT motor, RIGHT motor statinary -- maybe backwards?
-            P1OUT ^= BIT7;
-            P1OUT &= ~BIT5;
-            //P5OUT ^= BIT0;
+            if(STATE)
+            {
+                STATE = !STATE;
+            }
             break;
 
         case 's':
             //Toggle backwards pins
-            P1OUT ^= BIT6;
-            P5OUT ^= BIT0;
-
-            P5OUT ^= BIT1;
-            P5OUT ^= BIT3;
+            if(STATE)
+            {
+                STATE = !STATE;
+            }
             break;
 
         default:
             //Stay still -- all pins written to LOW
-            P1OUT &= ~BIT7;
-            P1OUT &= ~BIT6;
-            P1OUT &= ~BIT5;
-            P5OUT &= ~BIT0;
+            if(!STATE)
+            {
+                P1OUT &= ~BIT7;
+                P1OUT &= ~BIT6;
+                P1OUT &= ~BIT5;
+                P5OUT &= ~BIT0;
+
+                P8OUT &= ~BIT0;
+                P5OUT &= ~BIT1;
+                P5OUT &= ~BIT2;
+                P5OUT &= ~BIT3;
+
+            }
             break;
     }
 }
