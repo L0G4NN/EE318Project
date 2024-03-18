@@ -24,11 +24,11 @@ void initMotors()
 {
     //MOTOR PORTS
     /*
-     *  Motor A - P1.7, P1.6 -- Left hand side
+     *  Motor A - P2.5, P1.6 -- Left hand side  --TODO reevaluate to see how much of a mess the wires are
      *  Motor B - P1.5, P5.0 -- Right hand side
      */
 
-    P1DIR |= BIT7;
+    P2DIR |= BIT5;
     P1DIR |= BIT6;
     P1DIR |= BIT5;
     P5DIR |= BIT0;
@@ -43,7 +43,7 @@ void initMotors()
     P5DIR |= BIT3;  //LED4
 
     //INIT ALL LOW
-    P1OUT &= ~BIT7;
+    P2OUT &= ~BIT5;
     P1OUT &= ~BIT6;
     P1OUT &= ~BIT5;
     P5OUT &= ~BIT0;
@@ -71,12 +71,12 @@ void initPWMTimers()
     //TODO: MEASURE OUTPUT WAVE IN LAB, MAKE SURE REGISTER VALUES ARE CORRECT WAY ROUND
     //      MAKE SURE OUTMOD IS CORRECTLY SET
     TA0CCR0 = 32768;    //delta t = T * N - set PWM period
-    TA0CCR1 = 800;  //Amount of LOW time in the signal -- USERGUIDE page 329
+    TA0CCR1 = TA0CCR0 - 16000;  //Amount of LOW time in the signal -- USERGUIDE page 329
 
     TA0CCTL0 |= CM_1;   //Rising edge
     TA0CCTL0 |= CCIS_1;   //compare to the value stored in CCR1
-    TA0CCTL0 |= OUTMOD_3;
-    //TA0CCTL1 |= OUTMOD_3;
+    TA0CCTL0 |= OUTMOD_7;
+    TA0CCTL1 |= OUTMOD_7;
     TA0CCTL0 |= CCIE;   //local interrupt enable for CCR0
     TA0CCTL1 |= CCIE;
 
@@ -93,24 +93,25 @@ void delay_us(int microseconds)
     }
 }
 
-void _lab_test_()
+char _lab_test_(char signal)
 {
     //TODO: FINISH TEST FUNCTION
+    char _signal = signal;
+    //char signals[] = {'w','a','s','d'};
+    return _signal;
 
-    drive('w');
 }
 
 void drive(char signal)
 {
     static volatile int STATE;
     STATE ^= 1;
-    //TODO: FINISH FUNCTION NOW PWM WORKS -- THIS DOES NOT WORK AS EXPECTED
     switch (signal) {
 
         case 'w':
-            if(STATE)
+            if(STATE)           //Go forwards
             {
-                P1OUT ^= BIT7;  //Toggle PIN
+                P2OUT ^= BIT5;
                 P1OUT ^= BIT5;
 
                 P8OUT ^= BIT0;
@@ -122,8 +123,8 @@ void drive(char signal)
         case 'a':
             if(STATE)
             {
-                P1OUT ^= BIT6;
-                P1OUT ^= BIT5;
+                P1OUT ^= BIT6;  //Motor A backwards
+                P1OUT ^= BIT5;  //Motor B forwards
 
                 P5OUT ^= BIT1;
                 P5OUT ^= BIT2;

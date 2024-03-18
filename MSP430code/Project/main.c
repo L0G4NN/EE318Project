@@ -38,7 +38,7 @@ __interrupt void P1_ISR(void)   //interrupts on PORT1
 	}
 }
 
-char signal = 'w';   //for testing purposes -- will be set by bluetooth in practice
+char signal;;   //for testing purposes -- will be set by bluetooth in practice
 
 //ISR for CCR0 and CCR1 capture compare registers
 #pragma vector = TIMER0_A0_VECTOR
@@ -82,8 +82,7 @@ void main(void)
 	//MAIN PROGRAM LOOP
 	while(1)
 	{
-	    //_lab_test_();
-	    //delay_us(1);
+	    signal = _lab_test_('w');
 	    //bluetooth_check();
 	}
 }
