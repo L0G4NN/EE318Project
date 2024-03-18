@@ -62,21 +62,19 @@ void initPWMTimers()
     P4OUT &= ~BIT0;  //P4.0 LED initially set to LOW
 
     //Setup timer control registers
-    //TA0CTL |= TACLR;    // -- clear the timer to init
+    TA0CTL |= TACLR;    // -- clear the timer to init
     TA0CTL |= TASSEL__ACLK; //init ACLK 32.768kHz
     //TA0CTL |= ID__8;  //Divide ACLK by 8 - 4.096kHz
     TA0CTL |= MC__UP;   //Set UP mode
 
     //Capture compare registers
-    //TODO: MEASURE OUTPUT WAVE IN LAB, MAKE SURE REGISTER VALUES ARE CORRECT WAY ROUND
-    //      MAKE SURE OUTMOD IS CORRECTLY SET
     TA0CCR0 = 32768;    //delta t = T * N - set PWM period
     TA0CCR1 = TA0CCR0 - 16000;  //Amount of LOW time in the signal -- USERGUIDE page 329
 
     TA0CCTL0 |= CM_1;   //Rising edge
     TA0CCTL0 |= CCIS_1;   //compare to the value stored in CCR1
     TA0CCTL0 |= OUTMOD_7;
-    TA0CCTL1 |= OUTMOD_7;
+
     TA0CCTL0 |= CCIE;   //local interrupt enable for CCR0
     TA0CCTL1 |= CCIE;
 
@@ -136,6 +134,11 @@ void drive(char signal)
             //Toggle LEFT motor, RIGHT motor statinary -- maybe backwards?
             if(STATE)
             {
+                P2OUT ^= BIT5;
+                P5OUT ^= BIT0;
+
+                P8OUT ^= BIT0;
+                P5OUT ^= BIT3;
                 STATE = !STATE;
             }
             break;
@@ -144,6 +147,11 @@ void drive(char signal)
             //Toggle backwards pins
             if(STATE)
             {
+                P1OUT ^= BIT6;
+                P5OUT ^= BIT0;
+
+                P5OUT ^= BIT1;
+                P5OUT ^= BIT3;
                 STATE = !STATE;
             }
             break;

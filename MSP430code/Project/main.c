@@ -39,15 +39,12 @@ __interrupt void P1_ISR(void)   //interrupts on PORT1
 }
 
 char signal;;   //for testing purposes -- will be set by bluetooth in practice
-
 //ISR for CCR0 and CCR1 capture compare registers
 #pragma vector = TIMER0_A0_VECTOR
 __interrupt void ISR_TA0_CCR0(void)
 {
-    //Reference pulse
+    //Reference PWM
     P4OUT &= ~BIT0;  //SET LED HIGH
-    //P8OUT |= BIT0;
-
     drive(signal);
 
     TA0CCTL0 &= ~CCIFG; //clear interrupt flag
@@ -57,8 +54,6 @@ __interrupt void ISR_TA0_CCR0(void)
 __interrupt void ISR_TA0_CCR1(void)
 {
     P4OUT |= BIT0; //SET LED LOW
-    //P8OUT &= ~BIT0;
-
     drive(signal);
 
     TA0CCTL1 &= ~CCIFG; //clear interrupt
@@ -82,7 +77,7 @@ void main(void)
 	//MAIN PROGRAM LOOP
 	while(1)
 	{
-	    signal = _lab_test_('w');
+	    signal = _lab_test_('a');
 	    //bluetooth_check();
 	}
 }
