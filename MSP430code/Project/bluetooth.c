@@ -9,6 +9,9 @@ void bluetooth_init() {
     UCA0CTLW0 |= UCSWRST; // Put UART module in reset state
     UCA0CTLW0 |= UCSSEL__SMCLK; // Select SMCLK as clock source (assuming SMCLK is running at desired frequency)
     UCA0BRW = 6; // Set baud rate to 9600 with SMCLK at 1 MHz (see Table 36-5 in MSP430FR4xx Family User's Guide)
+    UCOS16 |= 1;
+    UCBRF0 |= 8;
+    UCBRS0 |= 0x20;
     UCA0CTLW0 &= ~UCSWRST;
 
 
