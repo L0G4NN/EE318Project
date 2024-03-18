@@ -89,7 +89,7 @@ void main(void)
 	{
 	    //_lab_test_();
 	    //delay_us(1);
-	    bluetooth_check();
+
 	}
 }
 

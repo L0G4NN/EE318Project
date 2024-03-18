@@ -88,12 +88,12 @@ void delay_us(int microseconds)
     }
 }
 
-void _lab_test_()
+/* void _lab_test_()
 {
     //TODO: FINISH TEST FUNCTION
 
     drive('w');
-}
+} */
 
 void drive(char signal)
 {
