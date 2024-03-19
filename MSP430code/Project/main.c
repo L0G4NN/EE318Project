@@ -69,30 +69,23 @@ void main(void)
     // Global interrupt enable
     __bis_SR_register(GIE);
 
-
-    //__bis_SR_register(LPM0_bits);
+    __bis_SR_register(LPM0_bits);
 
 	//initialise motor DO and timers
-   // initMotors();
+    // initMotors();
 	// initPWMTimers();
     bluetooth_init();
 
-
-<<<<<<< HEAD
-=======
 	//bluetooth_init();
->>>>>>> 2658e266a4038cd5abc56b54cf2098355a99d809
 
 	//MAIN PROGRAM LOOP
 	while(1)
 	{
-<<<<<<< HEAD
 	    //_lab_test_();
 	    //delay_us(1);
-=======
-	    signal = _lab_test_('a');
+
+	    signal = _lab_test_('w');
 	    //bluetooth_check();
->>>>>>> 2658e266a4038cd5abc56b54cf2098355a99d809
 	}
 }
 

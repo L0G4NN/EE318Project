@@ -1,7 +1,9 @@
+
 #include <msp430.h>
 #include "bluetooth.h"
 
 void bluetooth_init() {
+
     P1SEL0 |= BIT1; // Set RXD pin to UART mode
 
     UCA0CTLW0 |= UCSWRST; // Put UART module in reset state
@@ -20,6 +22,14 @@ void bluetooth_init() {
     // Configure LED pin
     P4DIR |= BIT0; // Set LED pin (P4.0) as output
     P4OUT &= ~BIT0; // Turn off LED
+
+    // Configure LED pin        -- used as pwm timer reference
+    P4DIR |= BIT0; // Set LED pin as output
+    P4OUT &= ~BIT0; // Turn off LED
+
+    PM5CTL0 &= ~LOCKLPM5;       //-- called in main. not needed
+
+
 }
 
 /*
@@ -45,7 +55,6 @@ __interrupt void USCI_A0_ISR(void) {
 
 */
 
-
 // ISR for UART RX
 #pragma vector=USCI_A0_VECTOR
 __interrupt void USCI_A0_ISR(void) {
@@ -59,6 +68,4 @@ __interrupt void USCI_A0_ISR(void) {
         case USCI_UART_UCTXCPTIFG: break;
     }
 }
-
-
 
