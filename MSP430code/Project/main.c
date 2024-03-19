@@ -76,21 +76,28 @@ void main(void)
     WDTCTL = WDTPW | WDTHOLD;   //stop watchdog timer
 	PM5CTL0 &= ~LOCKLPM5;
     __enable_interrupt();
+    // Global interrupt enable
+    __bis_SR_register(GIE);
+
+
     //__bis_SR_register(LPM0_bits);
 
 	//initialise motor DO and timers
-    initMotors();
-	initPWMTimers();
+   // initMotors();
+	// initPWMTimers();
+    bluetooth_init();
 
-	bluetooth_init();
+
 
 	//MAIN PROGRAM LOOP
 	while(1)
 	{
 	    //_lab_test_();
 	    //delay_us(1);
-
 	}
 }
+
+
+
 
 

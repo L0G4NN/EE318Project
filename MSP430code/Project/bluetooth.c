@@ -5,10 +5,12 @@ void bluetooth_init() {
     P1SEL0 |= BIT1; // Set RXD pin to UART mode
 
     UCA0CTLW0 |= UCSWRST; // Put UART module in reset state
-    UCA0CTLW0 |= UCSSEL__SMCLK; // Select SMCLK as clock source (assuming SMCLK is running at desired frequency)
-    UCA0BR0 = 6; // Set baud rate to 9600 with SMCLK at 1 MHz (see Table 36-5 in MSP430FR4xx Family User's Guide)
+    UCA0CTLW0 |= UCSSEL__SMCLK; // Select SMCLK as clock source
+
+    // Baud rate configuration for 9600
+    UCA0BR0 = 104;  // Set the baud rate control registers for 9600 baud
     UCA0BR1 = 0;
-    UCA0MCTLW |= UCOS16 | UCBRF_8 | 0x20; // Set modulation control to achieve desired baud rate
+    UCA0MCTLW = UCOS16 | UCBRF_1 | 0x4900; // Modulation and oversampling settings
 
     // Release UART module for operation
     UCA0CTLW0 &= ~UCSWRST;
@@ -16,22 +18,42 @@ void bluetooth_init() {
     UCA0IE |= UCRXIE;   // Enable UART RX interrupt
 
     // Configure LED pin
-    P4DIR |= BIT1; // Set LED pin (P4.1) as output
-    P4OUT &= ~BIT1; // Turn off LED
+    P4DIR |= BIT0; // Set LED pin (P4.0) as output
+    P4OUT &= ~BIT0; // Turn off LED
 }
+
 
 #pragma vector=USCI_A0_VECTOR
-__interrupt void USCI_A0_RX_ISR(void) {
-    if (UCA0IFG & UCRXIFG) { // Check RX interrupt flag
-        if (UCA0RXBUF == '1') {
-            P4OUT |= BIT1; // Turn on LED
-        }
-        else if (UCA0RXBUF == '0') {
-            P4OUT &= ~BIT1; // Turn off LED
-        }
-
-        UCA0IFG &= ~UCRXIFG; // Clear RX interrupt flag
+__interrupt void USCI_A0_ISR(void) {
+    switch(__even_in_range(UCA0IV, USCI_UART_UCTXCPTIFG)) {
+        case USCI_NONE: break;
+        case USCI_UART_UCRXIFG:
+            // Assuming a character '1' turns the LED on and '0' turns it off
+            if (UCA0RXBUF == '1') {
+                P4OUT ^= BIT0;  // Turn on LED
+            } else if (UCA0RXBUF == '0') {
+                P4OUT &= ~BIT0; // Turn off LED
+            }
+            break;
+        case USCI_UART_UCTXIFG: break;
+        case USCI_UART_UCSTTIFG: break;
+        case USCI_UART_UCTXCPTIFG: break;
     }
 }
+
+
+// ISR for UART RX
+/*#pragma vector=USCI_A0_VECTOR
+__interrupt void USCI_A0_ISR(void) {
+    switch(__even_in_range(UCA0IV, USCI_UART_UCTXCPTIFG)) {
+        case USCI_NONE: break;
+        case USCI_UART_UCRXIFG:
+            P4OUT ^= BIT0;  // Toggle LED on or off upon receiving any data
+            break;
+        case USCI_UART_UCTXIFG: break;
+        case USCI_UART_UCSTTIFG: break;
+        case USCI_UART_UCTXCPTIFG: break;
+    }
+}*/
 
 
