@@ -23,8 +23,6 @@
 #include "motor.h"
 #include "bluetooth.h"
 
-
-/*
 //Interrupts
 unsigned char SW1_interruptFlag = 0;
 
@@ -40,18 +38,14 @@ __interrupt void P1_ISR(void)   //interrupts on PORT1
 	}
 }
 
-char signal = 'w';   //for testing purposes -- will be set by bluetooth in practice
-
+char signal;;   //for testing purposes -- will be set by bluetooth in practice
 //ISR for CCR0 and CCR1 capture compare registers
 #pragma vector = TIMER0_A0_VECTOR
 __interrupt void ISR_TA0_CCR0(void)
 {
-    P4OUT |= BIT0;  //SET LED HIGH
-    P8OUT |= BIT0;
-
-    P1OUT |= BIT7;
-
-    //drive(signal);
+    //Reference PWM
+    P4OUT &= ~BIT0;  //SET LED HIGH
+    drive(signal);
 
     TA0CCTL0 &= ~CCIFG; //clear interrupt flag
 }
@@ -59,16 +53,12 @@ __interrupt void ISR_TA0_CCR0(void)
 #pragma vector = TIMER0_A1_VECTOR
 __interrupt void ISR_TA0_CCR1(void)
 {
-    P4OUT &= ~BIT0; //SET LED LOW
-    P8OUT &= ~BIT0;
+    P4OUT |= BIT0; //SET LED LOW
+    drive(signal);
 
-    P1OUT &= ~BIT7;
-
-    //drive(signal);
-
-    TA0CCTL1 %= ~CCIFG; //clear interrupt
+    TA0CCTL1 &= ~CCIFG; //clear interrupt
 }
-*/
+
 
 void main(void)
 {
@@ -88,12 +78,21 @@ void main(void)
     bluetooth_init();
 
 
+<<<<<<< HEAD
+=======
+	//bluetooth_init();
+>>>>>>> 2658e266a4038cd5abc56b54cf2098355a99d809
 
 	//MAIN PROGRAM LOOP
 	while(1)
 	{
+<<<<<<< HEAD
 	    //_lab_test_();
 	    //delay_us(1);
+=======
+	    signal = _lab_test_('a');
+	    //bluetooth_check();
+>>>>>>> 2658e266a4038cd5abc56b54cf2098355a99d809
 	}
 }
 
