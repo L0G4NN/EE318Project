@@ -22,18 +22,20 @@ void bluetooth_init() {
     P4OUT &= ~BIT0; // Turn off LED
 }
 
-
+/*
 #pragma vector=USCI_A0_VECTOR
 __interrupt void USCI_A0_ISR(void) {
     switch(__even_in_range(UCA0IV, USCI_UART_UCTXCPTIFG)) {
         case USCI_NONE: break;
         case USCI_UART_UCRXIFG:
             // Assuming a character '1' turns the LED on and '0' turns it off
-            if (UCA0RXBUF == '1') {
-                P4OUT ^= BIT0;  // Turn on LED
-            } else if (UCA0RXBUF == '0') {
-                P4OUT &= ~BIT0; // Turn off LED
-            }
+                              // Take Data from RX Buffer
+           if(Recvd_Char[Buffer_Index] == '1'){// check the end of data stream from computer
+               P4OUT |= BIT0;
+        }
+           else if (Recvd_Char[Buffer_Index] == '0') {
+                    P4OUT &= ~BIT0; // Turn off LED
+                }
             break;
         case USCI_UART_UCTXIFG: break;
         case USCI_UART_UCSTTIFG: break;
@@ -41,9 +43,11 @@ __interrupt void USCI_A0_ISR(void) {
     }
 }
 
+*/
+
 
 // ISR for UART RX
-/*#pragma vector=USCI_A0_VECTOR
+#pragma vector=USCI_A0_VECTOR
 __interrupt void USCI_A0_ISR(void) {
     switch(__even_in_range(UCA0IV, USCI_UART_UCTXCPTIFG)) {
         case USCI_NONE: break;
@@ -54,6 +58,7 @@ __interrupt void USCI_A0_ISR(void) {
         case USCI_UART_UCSTTIFG: break;
         case USCI_UART_UCTXCPTIFG: break;
     }
-}*/
+}
+
 
 
