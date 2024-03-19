@@ -61,7 +61,7 @@ void main(void)
     initMotors();
     initPWMTimers();
 
-    //bluetooth_init();
+    bluetooth_init();
 
     //MAIN PROGRAM LOOP
     while(1)
