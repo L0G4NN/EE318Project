@@ -91,18 +91,15 @@ void delay_us(int microseconds)
     }
 }
 
-/*
+
 char _lab_test_(char signal)
 {
     //TODO: FINISH TEST FUNCTION
     char _signal = signal;
     //char signals[] = {'w','a','s','d'};
     return _signal;
-
-<<<<<<< HEAD
-    drive('w');
 }
-*/
+
 
 
 void drive(char signal)
