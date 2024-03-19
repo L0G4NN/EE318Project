@@ -72,11 +72,10 @@ void main(void)
     __bis_SR_register(LPM0_bits);
 
 	//initialise motor DO and timers
-    // initMotors();
-	// initPWMTimers();
-    bluetooth_init();
+    initMotors();
+	initPWMTimers();
 
-	//bluetooth_init();
+    bluetooth_init();
 
 	//MAIN PROGRAM LOOP
 	while(1)

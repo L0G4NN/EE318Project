@@ -23,12 +23,9 @@ void bluetooth_init() {
     P4DIR |= BIT0; // Set LED pin (P4.0) as output
     P4OUT &= ~BIT0; // Turn off LED
 
-    // Configure LED pin        -- used as pwm timer reference
+    // Configure LED pin
     P4DIR |= BIT0; // Set LED pin as output
     P4OUT &= ~BIT0; // Turn off LED
-
-    PM5CTL0 &= ~LOCKLPM5;       //-- called in main. not needed
-
 
 }
 
@@ -59,13 +56,27 @@ __interrupt void USCI_A0_ISR(void) {
 #pragma vector=USCI_A0_VECTOR
 __interrupt void USCI_A0_ISR(void) {
     switch(__even_in_range(UCA0IV, USCI_UART_UCTXCPTIFG)) {
-        case USCI_NONE: break;
+        case USCI_NONE:
+            break;
+
         case USCI_UART_UCRXIFG:
             P4OUT ^= BIT0;  // Toggle LED on or off upon receiving any data
+            volatile char buffer = UCA0RXBUF;
+            recievedChar(buffer);
             break;
-        case USCI_UART_UCTXIFG: break;
-        case USCI_UART_UCSTTIFG: break;
-        case USCI_UART_UCTXCPTIFG: break;
+
+        case USCI_UART_UCTXIFG:
+            break;
+        case USCI_UART_UCSTTIFG:
+            break;
+        case USCI_UART_UCTXCPTIFG:
+            break;
     }
+}
+
+char recievedChar(char buffer)
+{
+    char recievedChar = buffer;
+    return recievedChar;
 }
 
