@@ -21,18 +21,18 @@
 #include <msp430.h>
 #include <driverlib.h>  //unsure if it is needed whilst using CCS
 #include "motor.h"
-//#include "bluetooth.h"
+#include "bluetooth.h"
 
-//Interrupts
-unsigned char SW1_interruptFlag = 0;
+char signal;  //for testing purposes -- will be set by bluetooth in practice
 
-char signal;   //for testing purposes -- will be set by bluetooth in practice
 //ISR for CCR0 and CCR1 capture compare registers
 #pragma vector = TIMER0_A0_VECTOR
 __interrupt void ISR_TA0_CCR0(void)
 {
-    //Reference PWM
+    //Reference pulse
     P4OUT &= ~BIT0;  //SET LED HIGH
+    //P8OUT |= BIT0;
+
     drive(signal);
 
     TA0CCTL0 &= ~CCIFG; //clear interrupt flag
@@ -42,41 +42,33 @@ __interrupt void ISR_TA0_CCR0(void)
 __interrupt void ISR_TA0_CCR1(void)
 {
     P4OUT |= BIT0; //SET LED LOW
+    //P8OUT &= ~BIT0;
+
     drive(signal);
 
     TA0CCTL1 &= ~CCIFG; //clear interrupt
 }
 
-
 void main(void)
 {
 
     WDTCTL = WDTPW | WDTHOLD;   //stop watchdog timer
-	PM5CTL0 &= ~LOCKLPM5;
+    PM5CTL0 &= ~LOCKLPM5;
     __enable_interrupt();
-    // Global interrupt enable
-    //__bis_SR_register(GIE);
+    //__bis_SR_register(LPM0_bits);
 
-    __bis_SR_register(LPM0_bits);
-
-	//initialise motor DO and timers
+    //initialise motor DO and timers
     initMotors();
-	initPWMTimers();
+    initPWMTimers();
 
     //bluetooth_init();
 
-	//MAIN PROGRAM LOOP
-	while(1)
-	{
-	    //_lab_test_();
-	    //delay_us(1);
-
-	    signal = _lab_test_('w');
-	    //bluetooth_check();
-	}
+    //MAIN PROGRAM LOOP
+    while(1)
+    {
+        signal = _lab_test_('w');
+        //bluetooth_check();
+    }
 }
-
-
-
 
 
