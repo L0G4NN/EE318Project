@@ -10,7 +10,7 @@
 
 void initialise_actuator();
 void drop_tree();
-void turn_forward();
-
+void set_clock();
+int degrees;
 
 #endif // __ACTUATOR_H__

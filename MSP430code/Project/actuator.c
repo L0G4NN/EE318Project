@@ -18,11 +18,55 @@ void initialise_actuator(){
 
 }
 
-void turn_forward(){
-    //setting up clock
-    TA1CCTL0 |= TASSEL__ACLK;
-    TA1CCTL0 |= ID__8;
-    TA1CCTL0 |= TACLR;
 
+        
+void set clock(){
+    //setting up clock    
+    TA1CCTL0 |= TACLR;
+<<<<<<< Updated upstream
+
+=======
+    TA1CTL0 |= TASSEL__ACLK;
+    TA1CTL0 |= ID__8; //4.096KhZ
+    TA1CTL |= MC_1;
+    
+    P1SEL |= 0x40;
+    P1OUT |= 0x01;
+    
+    TA1CCR0 |= 0x06;
+    
+>>>>>>> Stashed changes
 }
+
+int degrees = 0;
+
+void drop_tree_1(){
+    
+    TA1CCRO |= 0x07;
+    
+}
+
+void drop_tree_2(){
+    
+    TA1CCRO |= 0x08;
+    
+}
+
+void drop_tree_3(){
+    
+    TA1CCRO |= 0x0A;
+    
+}
+
+void reset(){
+    
+    TA1CCRO |= 0X06;
+}
+
+
+
+
+
+
+
 
