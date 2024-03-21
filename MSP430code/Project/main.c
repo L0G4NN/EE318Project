@@ -22,6 +22,7 @@
 #include <driverlib.h>  //unsure if it is needed whilst using CCS
 #include "motor.h"
 #include "bluetooth.h"
+#include "actuator.h"
 
 char signal;  //for testing purposes -- will be set by bluetooth in practice
 
@@ -68,6 +69,10 @@ void main(void)
     {
         signal = _lab_test_('w');
         //bluetooth_check();
+        setServoPosition(0);   // Move servo to 0 degrees
+        __delay_cycles(1000000); // Delay
+        setServoPosition(180); // Move servo to 180 degrees
+        __delay_cycles(1000000); // Delay
     }
 }
 

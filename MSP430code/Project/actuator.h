@@ -11,6 +11,7 @@
 void initialise_actuator();
 void drop_tree();
 void set_clock();
+void setServoPosition(unsigned int position);
 int degrees;
 
 #endif // __ACTUATOR_H__
