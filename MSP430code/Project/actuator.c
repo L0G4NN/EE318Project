@@ -16,24 +16,33 @@ void initialise_actuator(){
     // Setting the output pin
     //P1DIR |= 0x40;
 
-      WDTCTL = WDTPW + WDTHOLD; // Stop watchdog timer
+      //WDTCTL = WDTPW + WDTHOLD; // Stop watchdog timer    --NOT NEEDED CALLED IN MAIN
 
-        // Configure GPIO
+      // Configure GPIO
       P1DIR |= BIT7; // Set servo pin as output
       P1SEL0 |= BIT7; // Select PWM output for the servo pin
 
 
-        // Configure Timer
+      // Configure Timer
+
+      //CANT WRITE TO TIMER 0. MOTORS.C ALREADY WRITING TO THESE - NEED TO MOVE TO TA1
+
       TA0CCR0 = 20000-1; // PWM Period (SMCLK/50Hz) - Assuming SMCLK = 1MHz
       TA0CCTL1 = OUTMOD_7; // CCR1 reset/set
       TA0CCR1 = 1500; // CCR1 PWM duty cycle, 1.5 ms initially
       TA0CTL = TASSEL__SMCLK | MC__UP | TACLR; // SMCLK, up mode, clear TAR
 
+
+      /*
+       *
+      // DUPLICATED PREVIOUS SECTION -- NOT NEEDED
       // Configure Timer
       TA0CCR0 = 20000-1; // PWM Period (SMCLK/50Hz) - Assuming SMCLK = 1MHz
       TA0CCTL1 = OUTMOD_7; // CCR1 reset/set
       TA0CCR1 = 1500; // CCR1 PWM duty cycle, 1.5 ms initially
       TA0CTL = TASSEL__SMCLK | MC__UP | TACLR; // SMCLK, up mode, clear TAR
+      */
+
       }
 
 
@@ -46,6 +55,8 @@ void setServoPosition(unsigned int position) {
 
 /*
         
+
+        //messy code section
 void set_clock(){
     //setting up clock    
     TA1CCTL0 |= TACLR;
