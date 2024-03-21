@@ -20,12 +20,10 @@ void bluetooth_init() {
     UCA0IE |= UCRXIE;   // Enable UART RX interrupt
 
     // Configure LED pin
-    P4DIR |= BIT0; // Set LED pin (P4.0) as output
-    P4OUT &= ~BIT0; // Turn off LED
+    P1DIR |= BIT0; // Set LED pin (P4.0) as output
+    P1OUT &= ~BIT0; // Turn off LED
 
-    // Configure LED pin
-    P4DIR |= BIT0; // Set LED pin as output
-    P4OUT &= ~BIT0; // Turn off LED
+
 
 }
 
@@ -51,7 +49,7 @@ __interrupt void USCI_A0_ISR(void) {
 }
 
 */
-
+volatile unsigned char received_char;
 // ISR for UART RX
 #pragma vector=USCI_A0_VECTOR
 __interrupt void USCI_A0_ISR(void) {
@@ -60,9 +58,8 @@ __interrupt void USCI_A0_ISR(void) {
             break;
 
         case USCI_UART_UCRXIFG:
-            P4OUT ^= BIT0;  // Toggle LED on or off upon receiving any data
-            volatile char buffer = UCA0RXBUF;
-            recievedChar(buffer);
+            received_char = UCA0RXBUF; // Read to clear the interrupt flag
+                        // Process received_char here, e.g., store it in a buffer
             break;
 
         case USCI_UART_UCTXIFG:
@@ -74,9 +71,4 @@ __interrupt void USCI_A0_ISR(void) {
     }
 }
 
-char recievedChar(char buffer)
-{
-    char recievedChar = buffer;
-    return recievedChar;
-}
 
