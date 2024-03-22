@@ -10,7 +10,8 @@
 
 #include "actuator.h"
 
-void initialise_actuator(){
+void initialise_actuator()
+{
 
 
     // Setting the output pin
@@ -24,32 +25,48 @@ void initialise_actuator(){
 
 
       // Configure Timer
+      TA1CTL |= TACLR;
+      TA1CTL |= TASSEL__ACLK;
+      //TA1CTL |= ID__8;
+      TA1CTL |= MC__UP;
 
-      //CANT WRITE TO TIMER 0. MOTORS.C ALREADY WRITING TO THESE - NEED TO MOVE TO TA1
+      //Capture compare registers
+      TA1CCR0 = 32768; // PWM Period
+      TA1CCR1 = 1;  //Initial value - set servo to default pos; TODO: CHANGE
 
-      TA0CCR0 = 20000-1; // PWM Period (SMCLK/50Hz) - Assuming SMCLK = 1MHz
-      TA0CCTL1 = OUTMOD_7; // CCR1 reset/set
-      TA0CCR1 = 1500; // CCR1 PWM duty cycle, 1.5 ms initially
-      TA0CTL = TASSEL__SMCLK | MC__UP | TACLR; // SMCLK, up mode, clear TAR
+      TA1CCTL0 = CM_1;
+      TA1CCTL0 = CCIS_1;
+      TA1CCTL0 = OUTMOD_7; // CCR1 reset/set
 
-
-      /*
-       *
-      // DUPLICATED PREVIOUS SECTION -- NOT NEEDED
-      // Configure Timer
-      TA0CCR0 = 20000-1; // PWM Period (SMCLK/50Hz) - Assuming SMCLK = 1MHz
-      TA0CCTL1 = OUTMOD_7; // CCR1 reset/set
-      TA0CCR1 = 1500; // CCR1 PWM duty cycle, 1.5 ms initially
-      TA0CTL = TASSEL__SMCLK | MC__UP | TACLR; // SMCLK, up mode, clear TAR
-      */
-
-      }
+      TA1CCTL0 &= ~CCIFG;
+      TA1CCTL1 &= ~CCIFG;
+}
 
 
-void setServoPosition(unsigned int position) {
-    if (position > 180) position = 180; // Limit position to 0-180 degrees
-    unsigned int pulseWidth = (position * 10) + 1000; // Convert position to pulse width
-    TA0CCR1 = pulseWidth; // Update CCR1 with the new pulse width
+void setServoPosition(unsigned int position)
+{
+    int plant_count = 0;
+    const int pushback = 10;    //TODO: FIND FINAL VALUE
+    volatile char recieved_signal = recievedChar();
+
+    if(plant_count <= 3)
+    {
+        //Can keep planting
+        switch(recieved_signal){
+            case 'p':
+                TA1CCR1 = TA1CCR1 - pushback;
+                break;
+
+            default:
+                //Dont move position
+                TA1CCR1 = TA1CCR1;
+                break;
+        }
+    }
+    else
+    {
+        //do nothing
+    }
 }
 
 

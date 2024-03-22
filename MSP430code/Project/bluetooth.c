@@ -49,7 +49,7 @@ __interrupt void USCI_A0_ISR(void) {
 }
 
 */
-volatile unsigned char received_char;
+volatile char received_char;
 // ISR for UART RX
 #pragma vector=USCI_A0_VECTOR
 __interrupt void USCI_A0_ISR(void) {
@@ -71,4 +71,9 @@ __interrupt void USCI_A0_ISR(void) {
     }
 }
 
+char recievedChar()
+{
+    char signal = received_char;
+    return signal;
+}
 
