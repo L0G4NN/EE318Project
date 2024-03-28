@@ -8,10 +8,8 @@
 #include <msp430.h>
 #include "driverlib.h"
 
-void initialise_actuator();
-void drop_tree();
-void set_clock();
-void setServoPosition(unsigned int position);
-int degrees;
+void initActuator();
+void push_tree(char signal, int rotations);
+int rotate_count();
 
 #endif // __ACTUATOR_H__

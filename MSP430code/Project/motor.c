@@ -6,9 +6,6 @@
 *
 * Logan Noonan
 *
-* TODO:
-* Finish Drive()
-* Test on hardware
 *
 * Useful references
 * https://dev.ti.com/tirex/explore/node?node=A__AMqhsgBhm3-jH1WI3FE0eA__msp430ware__IOGqZri__LATEST
@@ -24,7 +21,7 @@ void initMotors()
 {
     //MOTOR PORTS
     /*
-     *  Motor A - P2.5, P1.6 -- Left hand side  --TODO reevaluate to see how much of a mess the wires are
+     *  Motor A - P2.5, P1.6 -- Left hand sidew  --TODO reevaluate to see how much of a mess the wires are
      *  Motor B - P1.5, P5.0 -- Right hand side
      */
 
@@ -63,13 +60,13 @@ void initPWMTimers()
 
     //Setup timer control registers
     TA0CTL |= TACLR;    // -- clear the timer to init
-    TA0CTL |= TASSEL__ACLK; //init ACLK 32.768kHz
+    TA0CTL |= TASSEL__SMCLK; //init ACLK 32.768kHz
     //TA0CTL |= ID__8;  //Divide ACLK by 8 - 4.096kHz
     TA0CTL |= MC__UP;   //Set UP mode
 
     //Capture compare registers
     TA0CCR0 = 32768;    //delta t = T * N - set PWM period
-    TA0CCR1 = TA0CCR0 - 16000;  //Amount of LOW time in the signal -- USERGUIDE page 329
+    TA0CCR1 = TA0CCR0 - 26000;  //Amount of LOW time in the signal -- USERGUIDE page 329
 
     TA0CCTL0 |= CM_1;   //Rising edge
     TA0CCTL0 |= CCIS_1;   //compare to the value stored in CCR1
@@ -81,14 +78,6 @@ void initPWMTimers()
     //clear any interrupts
     TA0CCTL0 &= ~CCIFG;
     TA0CCTL1 &= ~CCIFG;
-}
-
-void delay_us(int microseconds)
-{
-    while(microseconds--)
-    {
-        __delay_cycles(1);
-    }
 }
 
 
