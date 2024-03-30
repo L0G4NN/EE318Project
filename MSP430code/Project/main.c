@@ -47,6 +47,9 @@ __interrupt void ISR_TA1_CCR0(void)
 
     P1OUT |= BIT7;
     TA1CCTL0 &= ~CCIFG;
+
+    //Keep track of the number of rotations on the HIGH pulse.
+    int rotations = rotate_count();
 }
 
 #pragma vector = TIMER1_A1_VECTOR
@@ -66,6 +69,7 @@ void main(void)
     __enable_interrupt();
     //__bis_SR_register(LPM0_bits);
 
+    signal = recievedChar();
     //initialise motor DO and timers
     initMotors();
     initPWMTimers();
@@ -76,11 +80,9 @@ void main(void)
     while(1)
     {
         signal = _lab_test_('w');
-        //bluetooth_check();
-       /* setServoPosition(0);   // Move servo to 0 degrees
-        __delay_cycles(1000000); // Delay
-        setServoPosition(180); // Move servo to 180 degrees
-        __delay_cycles(1000000); // Delay */
+
+        //drive(recievedChar    //called in TA0 ISR
+        //push_tree(recievedChar, rotations);   //UNSURE IF CALLED IN TA1 ISR YET
     }
 }
 

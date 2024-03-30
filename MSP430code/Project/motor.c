@@ -110,6 +110,7 @@ void drive(char signal)
             break;
 
         case 'a':
+            //Toggle RIGHT motor, LEFT motor stationary
             if(STATE)
             {
                 P1OUT ^= BIT6;  //Motor A backwards
@@ -122,7 +123,7 @@ void drive(char signal)
             break;
 
         case 'd':
-            //Toggle LEFT motor, RIGHT motor statinary -- maybe backwards?
+            //Toggle LEFT motor, RIGHT motor stationary -- maybe backwards?
             if(STATE)
             {
                 P2OUT ^= BIT5;
@@ -151,7 +152,7 @@ void drive(char signal)
             //Stay still -- all pins written to LOW
             if(!STATE)
             {
-                P1OUT &= ~BIT7;
+                P2OUT &= ~BIT5;
                 P1OUT &= ~BIT6;
                 P1OUT &= ~BIT5;
                 P5OUT &= ~BIT0;
@@ -160,7 +161,6 @@ void drive(char signal)
                 P5OUT &= ~BIT1;
                 P5OUT &= ~BIT2;
                 P5OUT &= ~BIT3;
-
             }
             break;
     }
