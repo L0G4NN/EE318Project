@@ -43,7 +43,7 @@ __interrupt void ISR_TA0_CCR1(void)
 #pragma vector = TIMER1_A0_VECTOR
 __interrupt void ISR_TA1_CCR0(void)
 {
-    P4OUT |= BIT0;
+    //P4OUT |= BIT0;
 
     P1OUT |= BIT7;
     TA1CCTL0 &= ~CCIFG;
@@ -55,10 +55,51 @@ __interrupt void ISR_TA1_CCR0(void)
 #pragma vector = TIMER1_A1_VECTOR
 __interrupt void ISR_TA1_CCR1(void)
 {
-    P4OUT &= ~BIT0;
+    //P4OUT &= ~BIT0;
 
     P1OUT &= ~BIT7;
     TA1CCTL1 &= ~CCIFG;
+}
+
+//Bluetooth ISR
+volatile char receivedChar;
+
+#pragma vector=USCI_A0_VECTOR
+__interrupt void USCI_A0_ISR(void) {
+    switch (__even_in_range(UCA0IV, USCI_UART_UCTXCPTIFG)) {
+        case USCI_NONE:
+            break;
+        case USCI_UART_UCRXIFG:
+
+            receivedChar = UCA0RXBUF; // Read the received character
+
+            if(receivedChar == '1') {
+                // Function to go forward#
+                drive('w');
+            }
+            else if(receivedChar == '2') {
+                // function to stop
+                drive('x');  //char doesnt matter as drive should go into default, which is stop.
+            }
+            else if(receivedChar == '3') {
+                // function to turn left
+                drive('a');
+            }
+            else if(receivedChar == '4') {
+                // function to turn right
+                drive('s');
+            }
+            else if(receivedChar == '5') {
+                // function to reverse
+                drive('d');
+            }
+            else if(receivedChar == '6') {
+                // function to plant
+                push_tree('p');
+            }
+            break;
+        default: break;
+    }
 }
 
 void main(void)
@@ -69,20 +110,18 @@ void main(void)
     __enable_interrupt();
     //__bis_SR_register(LPM0_bits);
 
-    signal = recievedChar();
+    signal = receivedChar;
     //initialise motor DO and timers
     initMotors();
     initPWMTimers();
-    initActuator();
-    bluetooth_init();
+
+    initGPIO();
+    initUART();
 
     //MAIN PROGRAM LOOP
     while(1)
     {
-        signal = _lab_test_('w');
-
-        //drive(recievedChar    //called in TA0 ISR
-        //push_tree(recievedChar, rotations);   //UNSURE IF CALLED IN TA1 ISR YET
+        //signal = _lab_test_('w');
     }
 }
 

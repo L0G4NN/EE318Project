@@ -52,37 +52,12 @@ int rotate_count()
     return rotations;
 }
 
-/*
-void push_tree(char signal, int rotation)
-{
-    switch (signal) {
-        case 'p':
-            int rotations = rotation;
-            while((rotations = rotate_count()) <= MAX_ROTATIONS)
-            {
-                if(rotations <= POS_1)
-                {
-                    TA1CCR1 = TA1CCR0 - POS_1;
-                }
-                else if(rotations <= POS_2)
-                {
-                    TA1CCR1 = TA1CCR0 - POS_2;
-                }
-                else if(rotations <= POS_3)
-                {
-                    TA1CCR1 = TA1CCR0 - POS_3;
-                }
-            }
-            //Reset pos
-            TA1CCR1 = TA1CCR0 - DEFAULT;
-        }
-            break;
 
-        default:
-            break;
-    }
+void push_tree(char signal)
+{
+    //TODO: REWRITE CODE.
 }
-*/
+
 
 
 

@@ -9,7 +9,7 @@
 #include "driverlib.h"
 
 void initActuator();
-void push_tree(char signal, int rotations);
+void push_tree(char signal);
 int rotate_count();
 
 #endif // __ACTUATOR_H__
