@@ -5,7 +5,6 @@
 *
 */
 
-
 #include "actuator.h"
 
 //TODO: FIND THESE FINAL VALUES
@@ -17,31 +16,32 @@
 
 void initActuator()
 {
-      //Setup TIMERA1 identical to TIMERA0 for the Servo
-      // Configure GPIO
-      P1DIR |= BIT7; // Set servo pin as output
+    //Setup TIMERA1 identical to TIMERA0 for the Servo
+    // Configure GPIO
+    P1DIR |= BIT0;
+    P1DIR |= BIT7; // Set servo pin as output
 
-      // Configure Timer
-      TA1CTL |= TACLR;
-      TA1CTL |= TASSEL__ACLK;
-      //TA1CTL |= ID__8;
-      TA1CTL |= MC__UP;
+    // Configure Timer
+    TA1CTL |= TACLR;
+    TA1CTL |= TASSEL__ACLK;
+    //TA1CTL |= ID__8;
+    TA1CTL |= MC__UP;
 
-      //Capture compare registers
-      TA1CCR0 = 32768; // PWM Period = 1s
-      //TA1CCR1 = TA1CCR0 - DEFAULT;  //Initial value - set servo to default pos; TODO: 1MS PULSE = 0DEG
-      TA1CCR1 = DEFAULT;
-      TA1CCTL0 = CM_1;
-      TA1CCTL0 = CCIS_1;
-      TA1CCTL0 = OUTMOD_7; // CCR1 reset/set
+    //Capture compare registers
+    TA1CCR0 = 32768; // PWM Period = 1s
+    //TA1CCR1 = TA1CCR0 - DEFAULT;  //Initial value - set servo to default pos; TODO: 1MS PULSE = 0DEG
+    TA1CCR1 = DEFAULT;
+    TA1CCTL0 = CM_1;
+    TA1CCTL0 = CCIS_1;
+    TA1CCTL0 = OUTMOD_7; // CCR1 reset/set
 
-      TA1CCTL0 |= CCIE;
-      TA1CCTL1 |= CCIE;
+    TA1CCTL0 |= CCIE;
+    TA1CCTL1 |= CCIE;
 
-      TA1CCTL0 &= ~CCIFG;   //Enable local interrupts
-      TA1CCTL1 &= ~CCIFG;
+    TA1CCTL0 &= ~CCIFG;   //Enable local interrupts
+    TA1CCTL1 &= ~CCIFG;
 
-      //TODO: set to min position
+    //TODO: set to min position
 }
 
 unsigned int rotations = 0;

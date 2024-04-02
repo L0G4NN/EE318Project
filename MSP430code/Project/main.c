@@ -14,9 +14,9 @@
 #include "bluetooth.h"
 #include "actuator.h"
 
-char signal;  //for testing purposes -- will be set by bluetooth in practice
 
-//ISR for CCR0 and CCR1 capture compare registers
+volatile char signal;   //received from bluetooth ISR
+//MOTORS ISR
 #pragma vector = TIMER0_A0_VECTOR
 __interrupt void ISR_TA0_CCR0(void)
 {
@@ -40,10 +40,11 @@ __interrupt void ISR_TA0_CCR1(void)
     TA0CCTL1 &= ~CCIFG; //clear interrupt
 }
 
+//SERVO ISR
 #pragma vector = TIMER1_A0_VECTOR
 __interrupt void ISR_TA1_CCR0(void)
 {
-    //P4OUT |= BIT0;
+    //P1OUT |= BIT0;
 
     P1OUT |= BIT7;
     TA1CCTL0 &= ~CCIFG;
@@ -55,13 +56,14 @@ __interrupt void ISR_TA1_CCR0(void)
 #pragma vector = TIMER1_A1_VECTOR
 __interrupt void ISR_TA1_CCR1(void)
 {
-    //P4OUT &= ~BIT0;
+    //P1OUT &= ~BIT0;
 
     P1OUT &= ~BIT7;
     TA1CCTL1 &= ~CCIFG;
 }
 
-//Bluetooth ISR
+
+//BLUETOOTH ISR
 volatile char receivedChar;
 
 #pragma vector=USCI_A0_VECTOR
@@ -72,26 +74,25 @@ __interrupt void USCI_A0_ISR(void) {
         case USCI_UART_UCRXIFG:
 
             receivedChar = UCA0RXBUF; // Read the received character
-
             if(receivedChar == '1') {
                 // Function to go forward#
-                drive('w');
+                signal = 'w';
             }
             else if(receivedChar == '2') {
                 // function to stop
-                drive('x');  //char doesnt matter as drive should go into default, which is stop.
+                signal = 'x';   //dont care state
             }
             else if(receivedChar == '3') {
                 // function to turn left
-                drive('a');
+                signal = 'a';
             }
             else if(receivedChar == '4') {
                 // function to turn right
-                drive('s');
+                signal = 's';
             }
             else if(receivedChar == '5') {
                 // function to reverse
-                drive('d');
+                signal = 'd';
             }
             else if(receivedChar == '6') {
                 // function to plant
@@ -110,7 +111,6 @@ void main(void)
     __enable_interrupt();
     //__bis_SR_register(LPM0_bits);
 
-    signal = receivedChar;
     //initialise motor DO and timers
     initMotors();
     initPWMTimers();
