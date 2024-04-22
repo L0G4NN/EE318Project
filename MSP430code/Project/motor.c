@@ -66,7 +66,7 @@ void initPWMTimers()
 
     //Capture compare registers
     TA0CCR0 = 32768;    //delta t = T * N - set PWM period
-    TA0CCR1 = TA0CCR0 - 26000;  //Amount of LOW time in the signal -- USERGUIDE page 329
+    TA0CCR1 = TA0CCR0 - 25000;  //Amount of LOW time in the signal -- USERGUIDE page 329
 
     TA0CCTL0 |= CM_1;   //Rising edge
     TA0CCTL0 |= CCIS_1;   //compare to the value stored in CCR1
@@ -95,7 +95,7 @@ void drive(char signal)
 {
     static volatile int STATE;
     STATE ^= 1;
-    switch (signal) {
+    switch(signal) {
 
         case 'w':
             if(STATE)           //Go forwards
@@ -150,7 +150,7 @@ void drive(char signal)
 
         default:
             //Stay still -- all pins written to LOW
-            if(!STATE)
+            if(STATE)
             {
                 P2OUT &= ~BIT5;
                 P1OUT &= ~BIT6;

@@ -31,8 +31,4 @@ void initUART(void) {
 
 void initGPIO(void) {
 
-    P4DIR |= BIT0; // Set P4.0 as output for LED
-
-    P4OUT &= ~BIT0; // Turn off LED initially
-
 }

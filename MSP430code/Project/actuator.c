@@ -1,63 +1,51 @@
-/*
-*   actuator.c
-*
-*   //TODO: FIX PUSH TREE
-*
-*/
-
 #include "actuator.h"
 
-//TODO: FIND THESE FINAL VALUES
-#define DEFAULT 327;
-#define POS_1 1000;
-#define POS_2 2000;
-#define POS_3 3000;
-#define MAX_ROTATIONS 100;
-
-void initActuator()
+void delay()
 {
-    //Setup TIMERA1 identical to TIMERA0 for the Servo
-    // Configure GPIO
-    P1DIR |= BIT0;
-    P1DIR |= BIT7; // Set servo pin as output
+    P4OUT ^= BIT0;
 
-    // Configure Timer
-    TA1CTL |= TACLR;
-    TA1CTL |= TASSEL__ACLK;
-    //TA1CTL |= ID__8;
-    TA1CTL |= MC__UP;
-
-    //Capture compare registers
-    TA1CCR0 = 32768; // PWM Period = 1s
-    //TA1CCR1 = TA1CCR0 - DEFAULT;  //Initial value - set servo to default pos; TODO: 1MS PULSE = 0DEG
-    TA1CCR1 = DEFAULT;
-    TA1CCTL0 = CM_1;
-    TA1CCTL0 = CCIS_1;
-    TA1CCTL0 = OUTMOD_7; // CCR1 reset/set
-
-    TA1CCTL0 |= CCIE;
-    TA1CCTL1 |= CCIE;
-
-    TA1CCTL0 &= ~CCIFG;   //Enable local interrupts
-    TA1CCTL1 &= ~CCIFG;
-
-    //TODO: set to min position
+    volatile unsigned long i;
+    i = 49999;
+    do (i--);
+    while (i != 0);
 }
 
-unsigned int rotations = 0;
-int rotate_count()
+void initActuator(void)
 {
-    //Keep track of the number of rotations the servo has made
-    rotations++;
-    return rotations;
+
+    P4DIR |= BIT0;                          // Internal LEDs P1.0 of Launchpad is output
+
+    P1DIR |= BIT7;                          // P1.6/TA0.1 is used for PWM, thus also an output -> servo 1
+
+    P1OUT = 0;                              // Clear all outputs P1
+
+    P1SEL0 |= BIT7;                          // P1.6 select TA0.1 option
+
+    // if SMCLK is about 1MHz (or 1000000Hz),
+    // and 1000ms are the equivalent of 1 Hz,
+    // then, by setting CCR0 to 20000 (1000000 / 1000 * 20)
+    // we get a period of 20ms
+    TA1CCR0 = 20000-1;                           // PWM Period TA1.1
+
+    // setting 1500 is 1.5ms is 0deg. servo pos
+    TA1CCR1 = 1500;                            // CCR1 PWM duty cycle
+
+    TA1CCTL1 = OUTMOD_7;                       // CCR1 reset/set
+    TA1CTL   = TASSEL_2 + MC_1;                // SMCLK, up mode
+
+    // loop just blinks build in LEDs to show activity
+    for (;;)
+    {
+        delay();
+        TA1CCR1 = 2000;
+
+        delay();
+        TA1CCR1 = 1500;
+
+        delay();
+        TA1CCR1 = 1000;
+
+        delay();
+        TA1CCR1 = 1500;
+    }
 }
-
-
-void push_tree(char signal)
-{
-    //TODO: REWRITE CODE.
-}
-
-
-
-

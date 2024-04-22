@@ -44,21 +44,23 @@ __interrupt void ISR_TA0_CCR1(void)
 #pragma vector = TIMER1_A0_VECTOR
 __interrupt void ISR_TA1_CCR0(void)
 {
-    //P1OUT |= BIT0;
-
     P1OUT |= BIT7;
+
+    P4OUT |= BIT0;
+
     TA1CCTL0 &= ~CCIFG;
 
     //Keep track of the number of rotations on the HIGH pulse.
-    int rotations = rotate_count();
 }
+
 
 #pragma vector = TIMER1_A1_VECTOR
 __interrupt void ISR_TA1_CCR1(void)
 {
-    //P1OUT &= ~BIT0;
-
     P1OUT &= ~BIT7;
+
+    P4OUT &= ~BIT0;
+
     TA1CCTL1 &= ~CCIFG;
 }
 
@@ -74,29 +76,27 @@ __interrupt void USCI_A0_ISR(void) {
         case USCI_UART_UCRXIFG:
 
             receivedChar = UCA0RXBUF; // Read the received character
-            if(receivedChar == '1') {
-                // Function to go forward#
+            switch(receivedChar) {
+            case '1':
                 signal = 'w';
-            }
-            else if(receivedChar == '2') {
-                // function to stop
-                signal = 'x';   //dont care state
-            }
-            else if(receivedChar == '3') {
-                // function to turn left
+                break;
+            case '2':
+                signal = 'x';
+                break;
+            case '3':
                 signal = 'a';
-            }
-            else if(receivedChar == '4') {
-                // function to turn right
-                signal = 's';
-            }
-            else if(receivedChar == '5') {
-                // function to reverse
+                break;
+            case '4':
                 signal = 'd';
-            }
-            else if(receivedChar == '6') {
-                // function to plant
-                push_tree('p');
+                break;
+            case '5':
+                signal = 's';
+                break;
+            case '6':
+                signal = 'p';
+                break;
+            default:
+                signal = 'x';
             }
             break;
         default: break;
@@ -114,6 +114,7 @@ void main(void)
     //initialise motor DO and timers
     initMotors();
     initPWMTimers();
+    initActuator();
 
     initGPIO();
     initUART();
