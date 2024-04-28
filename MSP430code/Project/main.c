@@ -111,13 +111,13 @@ void main(void)
     __enable_interrupt();
     //__bis_SR_register(LPM0_bits);
 
-    //initialise motor DO and timers
+    //initialise motor DOs and timers
     initMotors();
     initPWMTimers();
     initActuator();
 
-    initGPIO();
-    initUART();
+    //initGPIO();
+    initUART();     //enable bluetooth comms
 
     //MAIN PROGRAM LOOP
     while(1)
