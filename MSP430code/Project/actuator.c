@@ -8,9 +8,9 @@
  * required values.
  */
 
-#define POS_LEFT 4.096
-#define POS_MID 6.14
-#define POS_RIGHT 8.19
+#define POS_LEFT 4.096  //1.0ms
+#define POS_MID 6.14    //1.5ms
+#define POS_RIGHT 8.19  //2.0ms
 
 void initActuator()
 {

@@ -17,7 +17,6 @@ void initMotors();
 void initPWMTimers();   //setup timers for PWM control
 
 void drive(char bluetooth_signal);
-void delay_us(int microseconds);
 
 char _lab_test_(char signal);  //simple function to test the hardware
 

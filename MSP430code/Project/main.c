@@ -97,15 +97,15 @@ __interrupt void USCI_A0_ISR(void) {
                 break;
             default:
                 signal = 'x';
+                break;
             }
-            break;
         default: break;
     }
 }
 
+
 void main(void)
 {
-
     WDTCTL = WDTPW | WDTHOLD;   //stop watchdog timer
     PM5CTL0 &= ~LOCKLPM5;
     __enable_interrupt();
@@ -116,7 +116,6 @@ void main(void)
     initPWMTimers();
     initActuator();
 
-    //initGPIO();
     initUART();     //enable bluetooth comms
 
     //MAIN PROGRAM LOOP

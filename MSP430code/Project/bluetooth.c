@@ -28,7 +28,3 @@ void initUART(void) {
     UCA0IE |= UCRXIE;
 }
 
-
-void initGPIO(void) {
-
-}

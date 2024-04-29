@@ -7,6 +7,5 @@ void bluetooth_init();
 
 // Function to check for incoming data from Bluetooth
 void initUART();
-void initGPIO();
 
 #endif /* BLUETOOTH_H_ */
