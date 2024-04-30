@@ -9,7 +9,8 @@
 #include "driverlib.h"
 
 void initActuator();
-void set_pos(char signal, int pos);
+void set_pos(int i, char signal);
+void delay_us(unsigned int delay);
 
 
 #endif // __ACTUATOR_H__

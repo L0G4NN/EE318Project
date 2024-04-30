@@ -15,7 +15,8 @@
 void initActuator()
 {
     //SETUP TIMERA1
-    P4DIR |= BIT0;
+    P1DIR |= BIT7;
+    P4DIR |= BIT0;  //ref LED
 
     TA1CTL |= TACLR;
     TA1CTL |= TASSEL__ACLK;
@@ -39,11 +40,58 @@ void initActuator()
 }
 
 
-void set_pos(char signal, int pos)
+void delay_us(unsigned int delay)
 {
-    volatile int i = 0;
+    while(delay--) {
+        __delay_cycles(1);
+    }
+}
+
+/*
+void manual_pulsing(char signal)
+{
+    volatile unsigned int i = 0;  //keep track of no. of plants
 
     for (i = 0; i <= 3;) {
+            if (signal == 'p') {
+                switch (i) {
+                    case 1:
+                        //Create 50Hz pulse with 0.5ms high pulse
+                        P1OUT |= BIT7;
+                        delay_us(500);
+                        P1OUT &= ~BIT7;
+                        delay_us(19500);
+                        break;
+
+                    case 2:
+                        P1OUT |= BIT7;
+                        delay_us(1500);
+                        P1OUT &= ~BIT7;
+                        delay_us(18500);
+                        break;
+
+                    case 3:
+                        P1OUT |= BIT7;
+                        delay_us(2000);
+                        P1OUT &= ~BIT7;
+                        delay_us(18000);
+                        break;
+
+                    default:
+                        P1OUT &= ~BIT7;
+                        break;
+                }
+                i++;
+            }
+    }
+}
+*/
+
+
+void set_pos(int i, char signal)
+{
+
+    if (i <= 3) {
         if (signal == 'p') {
             //MOVE POS
             switch (i) {
@@ -60,7 +108,8 @@ void set_pos(char signal, int pos)
                     TA1CCR1 = POS_LEFT;
                     break;
             }
-            i++;    //keep track of how many trees have been pushed
         }
     }
 }
+
+
