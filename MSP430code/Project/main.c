@@ -15,15 +15,11 @@
 #include "actuator.h"
 
 
-volatile char signal = 'p';   //received from bluetooth ISR
+volatile char signal = 'x';   //received from bluetooth ISR
 //MOTORS ISR
 #pragma vector = TIMER0_A0_VECTOR
 __interrupt void ISR_TA0_CCR0(void)
 {
-    //Reference pulse
-    //P4OUT &= ~BIT0;  //SET LED HIGH
-    //P8OUT |= BIT0;
-
     drive(signal);
 
     TA0CCTL0 &= ~CCIFG; //clear interrupt flag
@@ -32,25 +28,22 @@ __interrupt void ISR_TA0_CCR0(void)
 #pragma vector = TIMER0_A1_VECTOR
 __interrupt void ISR_TA0_CCR1(void)
 {
-    //P4OUT |= BIT0; //SET LED LOW
-    //P8OUT &= ~BIT0;
-    //drive(signal);
     TA0CCTL1 &= ~CCIFG; //clear interrupt
 }
 
 //SERVO ISR
-volatile unsigned int j = 0;
+volatile unsigned int j = 1;
 #pragma vector = TIMER1_A0_VECTOR
 __interrupt void ISR_TA1_CCR0(void)
 {
     P4OUT |= BIT0;
     if (j <= 3 && signal == 'p') {
         set_pos(j, signal);
+        //manual_pulsing(j, signal);
         //j++;
         P1OUT |= BIT7;
     }
     TA1CCTL0 &= ~CCIFG;
-
     //Keep track of the number of rotations on the HIGH pulse.
 }
 

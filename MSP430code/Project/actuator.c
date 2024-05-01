@@ -6,11 +6,14 @@
  * POS Values calculated to be 1ms, 1.5ms, and 2ms.
  * Period of ACLK is 1/4096 = 0.2ms therefore the value is multiplied to meet the
  * required values.
+ *
+ * TODO: MAY NEED TO LATCH THE SIGNAL WE RECIEVE. CAN FIGURE OUT ONCE LAB TESTED.
+ * TODO: REFINE DEFINED NUMBERS, MAY NEED SMALL ADJUSTMENTS
  */
 
-#define POS_LEFT 4.096  //1.0ms
-#define POS_MID 6.14    //1.5ms
-#define POS_RIGHT 8.19  //2.0ms
+#define POS_LEFT 500  //0.5ms
+#define POS_MID 1500    //1.5ms
+#define POS_RIGHT 2500  //2.0ms
 
 void initActuator()
 {
@@ -19,12 +22,12 @@ void initActuator()
     P4DIR |= BIT0;  //ref LED
 
     TA1CTL |= TACLR;
-    TA1CTL |= TASSEL__ACLK;
-    TA1CTL |= ID__8;    //32768 / 8 = 4096
+    TA1CTL |= TASSEL__SMCLK;
+    //TA1CTL |= ID__8;    //32768 / 8 = 4096
     TA1CTL |= MC__UP;
 
     //Cap compare registers
-    TA1CCR0 = 4096;     // 1/4096 = 0.24ms
+    TA1CCR0 = 20000;     // 1/4096 = 0.24ms
     TA1CCR1 = POS_MID;
 
     TA1CCTL0 |= CM_1;    //Rising edge
@@ -40,6 +43,7 @@ void initActuator()
 }
 
 
+/*
 void delay_us(unsigned int delay)
 {
     while(delay--) {
@@ -47,18 +51,16 @@ void delay_us(unsigned int delay)
     }
 }
 
-/*
-void manual_pulsing(char signal)
-{
-    volatile unsigned int i = 0;  //keep track of no. of plants
 
-    for (i = 0; i <= 3;) {
+void manual_pulsing(int count, char signal)
+{
+    if (count <= 3) {
             if (signal == 'p') {
-                switch (i) {
+                switch (count) {
                     case 1:
                         //Create 50Hz pulse with 0.5ms high pulse
                         P1OUT |= BIT7;
-                        delay_us(500);
+                        delay_us(2000); //500
                         P1OUT &= ~BIT7;
                         delay_us(19500);
                         break;
@@ -81,12 +83,10 @@ void manual_pulsing(char signal)
                         P1OUT &= ~BIT7;
                         break;
                 }
-                i++;
             }
     }
 }
 */
-
 
 void set_pos(int i, char signal)
 {

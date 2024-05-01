@@ -60,7 +60,7 @@ void initPWMTimers()
 
     //Setup timer control registers
     TA0CTL |= TACLR;    // -- clear the timer to init
-    TA0CTL |= TASSEL__SMCLK; //init ACLK 32.768kHz
+    TA0CTL |= TASSEL__SMCLK; //init ACLK 32.768kHz  --SMCLK
     //TA0CTL |= ID__8;  //Divide ACLK by 8 - 4.096kHz
     TA0CTL |= MC__UP;   //Set UP mode
 

@@ -10,6 +10,8 @@
 
 void initActuator();
 void set_pos(int i, char signal);
+
+void manual_pulsing(int count, char signal);
 void delay_us(unsigned int delay);
 
 
