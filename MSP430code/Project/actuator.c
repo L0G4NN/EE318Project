@@ -3,9 +3,7 @@
 /*
  * SERVO MOTOR CODE
  * LOGAN NOONAN
- * POS Values calculated to be 1ms, 1.5ms, and 2ms.
- * Period of ACLK is 1/4096 = 0.2ms therefore the value is multiplied to meet the
- * required values.
+ * https://deepbluembedded.com/servo-motor-control-with-pic-microcontroller-software-pwm-pt2/
  *
  * TODO: MAY NEED TO LATCH THE SIGNAL WE RECIEVE. CAN FIGURE OUT ONCE LAB TESTED.
  * TODO: REFINE DEFINED NUMBERS, MAY NEED SMALL ADJUSTMENTS
@@ -27,7 +25,7 @@ void initActuator()
     TA1CTL |= MC__UP;
 
     //Cap compare registers
-    TA1CCR0 = 20000;     // 1/4096 = 0.24ms
+    TA1CCR0 = 20000;     // 1/50Hz = 20ms, therefore 20,000
     TA1CCR1 = POS_MID;
 
     TA1CCTL0 |= CM_1;    //Rising edge

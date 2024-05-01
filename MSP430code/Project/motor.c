@@ -60,13 +60,14 @@ void initPWMTimers()
 
     //Setup timer control registers
     TA0CTL |= TACLR;    // -- clear the timer to init
-    TA0CTL |= TASSEL__SMCLK; //init ACLK 32.768kHz  --SMCLK
+    TA0CTL |= TASSEL__SMCLK; //init ACLK 32.768kHz  --SMCLK = 1MHz
     //TA0CTL |= ID__8;  //Divide ACLK by 8 - 4.096kHz
     TA0CTL |= MC__UP;   //Set UP mode
 
     //Capture compare registers
-    TA0CCR0 = 32768;    //delta t = T * N - set PWM period
-    TA0CCR1 = TA0CCR0 - 25000;  //Amount of LOW time in the signal -- USERGUIDE page 329
+    //TODO: REFINE THESE VALUES
+    TA0CCR0 = 20000;    //50Hz signal -- 20ms
+    TA0CCR1 = TA0CCR0 - 2000;  //Amount of LOW time in the signal -- USERGUIDE page 329
 
     TA0CCTL0 |= CM_1;   //Rising edge
     TA0CCTL0 |= CCIS_1;   //compare to the value stored in CCR1

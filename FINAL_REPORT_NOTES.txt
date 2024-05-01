@@ -1,0 +1,5 @@
+CHECKLIST OF FORMAT:
+- No first person language to be used (I, We, you etc)
+- Max font size 14, minimum 10
+
+Appendices we may need to go through code and add final revision dates onto them
