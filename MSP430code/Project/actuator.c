@@ -9,7 +9,7 @@
  * TODO: REFINE DEFINED NUMBERS, MAY NEED SMALL ADJUSTMENTS
  */
 
-#define POS_LEFT 500  //0.5ms
+#define POS_LEFT 200  //0.5ms
 #define POS_MID 1500    //1.5ms
 #define POS_RIGHT 2000  //2.0ms
 
@@ -59,16 +59,16 @@ void set_pos(int i, char signal)
             //MOVE POS
             switch (i) {
                 case 1:
-                    TA1CCR1 = POS_LEFT;
+                    TA1CCR1 = POS_RIGHT;
                     break;
                 case 2:
                     TA1CCR1 = POS_MID;
                     break;
                 case 3:
-                    TA1CCR1 = POS_RIGHT;
+                    TA1CCR1 = POS_LEFT;
                     break;
                 default:
-                    TA1CCR1 = POS_LEFT;
+                    TA1CCR1 = POS_RIGHT;
                     break;
             }
         }
