@@ -2,8 +2,8 @@
     motor.h
 
     Logan Noonan
-
-    PORT 1 PINS 5,6,7 AND PORT 5 PINS 0
+    UPDATED 18/04/2024
+    - Updated testing function return type and arguments 
 ******************/
 
 #ifndef MOTOR_H

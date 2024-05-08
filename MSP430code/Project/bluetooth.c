@@ -1,15 +1,21 @@
+/******
+ *  bluetooth.c
+ * 
+ *  Cailean O'Reilly
+ *  UPDATED 22/04/2024
+ *  - added test LED in interrupt
+ *  - removed uneccessary function
+ * 
+******/
+
 
 #include <msp430.h>
 #include "bluetooth.h"
 
 void initUART(void) {
 
-    PM5CTL0 &= ~LOCKLPM5; // Disable GPIO high-impedance mode
-
-    // Assuming P1.2 = RXD, P1.3 = TXD for example. Adjust according to your board.
-
+    //P1.0 = TXD, P1.1 = RXD
     P1SEL0 |= BIT0 | BIT1;
-
 
     UCA0CTLW0 |= UCSWRST; // Reset state
 

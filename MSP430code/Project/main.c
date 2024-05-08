@@ -6,6 +6,10 @@
  *   BLUETOOTH: PORT 1 PINS 0 TX, 1 RX
  *   MOTOR: A: 2.5, 1.6 B: 1.5, 5.0
  *   SERVO: PORT 1 PIN 7
+ * 
+ *   UPDATED 08/05/2024
+ *  - Cleaned up testing code that was invalid / would break the program
+ *  - Also removed unessessary function calls
  */
 
 #include <msp430.h>
@@ -39,15 +43,12 @@ __interrupt void ISR_TA1_CCR0(void)
     P4OUT |= BIT0;
     if (j <= 3 && signal == 'p') {
         set_pos(j, signal);
-        //manual_pulsing(j, signal);
-        //j++;
         P1OUT |= BIT7;
     }
     if (j > 3) {
         j = 0;
     }
     TA1CCTL0 &= ~CCIFG;
-    //Keep track of the number of rotations on the HIGH pulse.
 }
 
 

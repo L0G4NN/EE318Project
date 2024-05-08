@@ -1,13 +1,16 @@
-#include "actuator.h"
+/******
+ *  actuator.c
+ * 
+ *  Logan Noonan
+ *  UPDATED 07/05/2024
+ *  - added test LED for testing
+ *  - refined values of TA1CCR1 for motor positions
+ *  - removed uneccessary function
+ * 
+ *  https://deepbluembedded.com/servo-motor-control-with-pic-microcontroller-software-pwm-pt2/
+******/
 
-/*
- * SERVO MOTOR CODE
- * LOGAN NOONAN
- * https://deepbluembedded.com/servo-motor-control-with-pic-microcontroller-software-pwm-pt2/
- *
- * TODO: MAY NEED TO LATCH THE SIGNAL WE RECIEVE. CAN FIGURE OUT ONCE LAB TESTED.
- * TODO: REFINE DEFINED NUMBERS, MAY NEED SMALL ADJUSTMENTS
- */
+#include "actuator.h"
 
 #define POS_LEFT 200  //0.5ms
 #define POS_MID 1500    //1.5ms
@@ -39,16 +42,6 @@ void initActuator()
     TA1CCTL1 &= ~CCIFG;
 
 }
-
-
-/*
-void delay_us(unsigned int delay)
-{
-    while(delay--) {
-        __delay_cycles(1);
-    }
-}
-*/
 
 
 void set_pos(int i, char signal)

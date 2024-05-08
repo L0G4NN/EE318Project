@@ -1,7 +1,11 @@
-/*
-* actuator.h
-*
-*/
+/******
+ *  actuator.h
+ * 
+ *  Logan Noonan
+ *  UPDATED 08/05/2024
+ *  - removed uneccessary/unused functions
+ * 
+******/
 #ifndef __ACTUATOR_H__
 #define __ACTUATOR_H__
 
@@ -9,10 +13,5 @@
 #include "driverlib.h"
 
 void initActuator();
-void set_pos(int i, char signal);
-
-void manual_pulsing(int count, char signal);
-void delay_us(unsigned int delay);
-
 
 #endif // __ACTUATOR_H__

@@ -1,16 +1,20 @@
 /******************
-* motor.c
+*   motor.c
 *
-* Implementation of controlling the
-* motors on our vehicle
+*   Implementation of controlling the
+*   motors on our vehicle
 *
-* Logan Noonan
+*   Logan Noonan
+*
+*   UPDATED 07/05/2024
+*   - Refined values of TA0CCR0 and TA0CCR1
 *
 *
-* Useful references
-* https://dev.ti.com/tirex/explore/node?node=A__AMqhsgBhm3-jH1WI3FE0eA__msp430ware__IOGqZri__LATEST
-* Brock J. LaMers - Embedded Systems Design
-* http://www.msp430launchpad.com/2010/07/timers-and-clocks-and-pwm-oh-my.html
+*
+*   Useful references
+*   https://dev.ti.com/tirex/explore/node?node=A__AMqhsgBhm3-jH1WI3FE0eA__msp430ware__IOGqZri__LATEST
+*   Brock J. LaMers - Embedded Systems Design
+*   http://www.msp430launchpad.com/2010/07/timers-and-clocks-and-pwm-oh-my.html
 ******************/
 
 #include "motor.h"
