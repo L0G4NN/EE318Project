@@ -15,7 +15,7 @@
 #include "actuator.h"
 
 
-volatile char signal = 'x';   //received from bluetooth ISR
+volatile char signal;   //received from bluetooth ISR
 //MOTORS ISR
 #pragma vector = TIMER0_A0_VECTOR
 __interrupt void ISR_TA0_CCR0(void)
@@ -42,6 +42,9 @@ __interrupt void ISR_TA1_CCR0(void)
         //manual_pulsing(j, signal);
         //j++;
         P1OUT |= BIT7;
+    }
+    if (j > 3) {
+        j = 0;
     }
     TA1CCTL0 &= ~CCIFG;
     //Keep track of the number of rotations on the HIGH pulse.

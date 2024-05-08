@@ -65,7 +65,6 @@ void initPWMTimers()
     TA0CTL |= MC__UP;   //Set UP mode
 
     //Capture compare registers
-    //TODO: REFINE THESE VALUES
     TA0CCR0 = 20000;    //50Hz signal -- 20ms
     TA0CCR1 = TA0CCR0 - 2000;  //Amount of LOW time in the signal -- USERGUIDE page 329
 
