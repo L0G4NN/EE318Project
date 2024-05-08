@@ -9,8 +9,6 @@
 *   UPDATED 07/05/2024
 *   - Refined values of TA0CCR0 and TA0CCR1
 *
-*
-*
 *   Useful references
 *   https://dev.ti.com/tirex/explore/node?node=A__AMqhsgBhm3-jH1WI3FE0eA__msp430ware__IOGqZri__LATEST
 *   Brock J. LaMers - Embedded Systems Design
@@ -25,7 +23,7 @@ void initMotors()
 {
     //MOTOR PORTS
     /*
-     *  Motor A - P2.5, P1.6 -- Left hand sidew  --TODO reevaluate to see how much of a mess the wires are
+     *  Motor A - P2.5, P1.6 -- Left hand side
      *  Motor B - P1.5, P5.0 -- Right hand side
      */
 
